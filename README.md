@@ -1,4 +1,4 @@
-
+.
 # MapMemories
 
 ## ⚙️ Prerequisites
