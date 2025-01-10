@@ -1,11 +1,15 @@
-.
 # MapMemories
 
 ## ⚙️ Prerequisites
 - Android Studio Koala 🐨(2024.1.1)
-- Android SDK 35
-
-## ⚙️ Commit Convetion
+- target SDK : Android API 35
+- min SDK : API 24
+## ⚙️Tech Stack
+- Jetpack Compose
+- Retrofit, OkHttp
+- Coroutine & Flow
+- Naver Map
+## :memo: Commit Convetion
 | Type | Description |
 |:--:|--|
 | feat     | 기능, 사용자 경험에 변경이 있는 경우 (모든 커밋은 기본적으로 feat)|
