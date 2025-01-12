@@ -8,7 +8,18 @@
 - Jetpack Compose
 - Retrofit, OkHttp
 - Coroutine & Flow
-- Naver Map
+- Room (로컬 DB), Firebase Firestore (클라우드 DB)
+- Lottie (애니메이션)
+- CircleImageView (프로필 이미지), SearchView (검색)
+- Google Maps SDK (지도)
+- Geocoder (좌표 - 주소 변환)
+- Marker Clustering (마커 그룹화)
+- Firebase Authentication (사용자 인증)
+- Google/KaKao SDK (소셜 로그인)
+- Glide (이미지 로딩 및 캐싱)
+- CameraX (사진 촬영)
+- Firebase Cloud Messaging (푸시 알림)
+- WorkManager (백그라운드 작업)
 ## :memo: Commit Convetion
 | Type | Description |
 |:--:|--|
