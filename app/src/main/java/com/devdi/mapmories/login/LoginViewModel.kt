@@ -9,4 +9,13 @@ class LoginViewModel : ViewModel(){
 
     var showInputNumberActivity : MutableLiveData<Boolean> = MutableLiveData(false)
     var showFindIdActivity : MutableLiveData<Boolean> = MutableLiveData(false)
+    var showMainActivity : MutableLiveData<Boolean> = MutableLiveData(false)
+
+    fun loginWithSignupEmail(){
+        loginEmail()
+    }
+
+    fun loginEmail(){
+        showMainActivity.value=true
+    }
 }

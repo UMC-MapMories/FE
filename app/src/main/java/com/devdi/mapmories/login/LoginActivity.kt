@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.devdi.mapmories.MainActivity
 import com.devdi.mapmories.R
 import com.devdi.mapmories.databinding.ActivityLoginBinding
 
@@ -36,7 +37,16 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this,FindIdActivity::class.java))
             }
         }
+        loginViewModel.showMainActivity.observe(this){
+            if(it){
+                startActivity(Intent(this,MainActivity::class.java))
+            }
+        }
     }
+    fun loginFacebook(){
+        loginViewModel.showMainActivity.value=true
+    }
+
     fun loginEmail(){
         print("Email")
         loginViewModel.showInputNumberActivity.value = true
