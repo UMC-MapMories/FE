@@ -29,6 +29,9 @@ android {
     buildFeatures{
         viewBinding=true
     }
+    dataBinding {
+        enable = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -40,6 +43,8 @@ android {
 
 dependencies {
 
+    implementation("androidx.activity:activity-ktx:1.9.3")
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
