@@ -71,7 +71,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatButton
-                android:onClick="@{()->activity.loginWithSignupEmail()}"
+                android:onClick="@{()->viewModel.loginWithSignupEmail()}"
                 android:id="@+id/email_login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
