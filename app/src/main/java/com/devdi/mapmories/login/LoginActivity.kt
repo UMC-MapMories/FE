@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.devdi.mapmories.MainActivity
 import com.devdi.mapmories.R
 import com.devdi.mapmories.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+    lateinit var auth : FirebaseAuth
     lateinit var binding : ActivityLoginBinding
     val loginViewModel: LoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,9 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = loginViewModel
         binding.activity = this
         binding.lifecycleOwner = this
+        auth = FirebaseAuth.getInstance()
         setObserve()
+
     }
 
     fun setObserve(){
@@ -47,9 +51,15 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.showMainActivity.value=true
     }
 
-    fun loginEmail(){
+    fun loginWithSignupEmail(){
         print("Email")
-        loginViewModel.showInputNumberActivity.value = true
+        auth.createUserWithEmailAndPassword(loginViewModel.id.value.toString(),loginViewModel.password.value.toString()).addOnCompleteListener {
+            if(it.isSuccessful){
+                loginViewModel.showInputNumberActivity.value=true
+            }else{
+                //아이디가 있을 경우
+            }
+        }
     }
     fun findId(){
         println("findId")
