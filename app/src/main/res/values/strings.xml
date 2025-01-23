@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">MapMories</string>
-    <string name="facebook_app_id">397161661812167</string>
-    <string name="fb_login_protocol_scheme">fb397161661812167</string>
+
+    <string name="facebook_app_id">1317520209382860</string>
+    <string name="fb_login_protocol_scheme">fb9f506280ba6c8472015a423091cd3935</string>
+    <string name="facebook_client_token">9f506280ba6c8472015a423091cd3935</string>
+
+
     <!--  Sign In  -->
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
