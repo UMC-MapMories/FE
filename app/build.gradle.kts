@@ -50,6 +50,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.3.0")
     implementation("com.facebook.android:facebook-android-sdk:12.3.0")
 
+    implementation("com.google.android.gms:play-services:12.0.1") // google maps
+    // implementation("com.google.android.gms:play-services-location:21.3.0") // geocoding
+    // implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("androidx.activity:activity-ktx:1.9.3")
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation(libs.androidx.core.ktx)
