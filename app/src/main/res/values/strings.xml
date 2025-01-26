@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">MapMories</string>
-    <string name="facebook_app_id">397161661812167</string>
-    <string name="fb_login_protocol_scheme">fb397161661812167</string>
+
+    <string name="facebook_app_id">1317520209382860</string>
+    <string name="fb_login_protocol_scheme">fb9f506280ba6c8472015a423091cd3935</string>
+    <string name="facebook_client_token">9f506280ba6c8472015a423091cd3935</string>
+
+
     <!--  Sign In  -->
-    <string name="email">Email</string>
+    <string name="email">Email Address</string>
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="apply">Apply</string>
@@ -12,8 +16,8 @@
     <string name="find_password">Find my password</string>
     <string name="close">Close</string>
     <string name="signin_email">Signup or Signin by email</string>
-    <string name="signin_google">Google login</string>
-    <string name="signin_facebook">Facebook login</string>
+    <string name="signin_google"> </string>
+    <string name="signin_facebook">Signup up with Facebook </string>
     <string name="signup_complete">Membership success</string>
     <string name="signin_complete">Login success</string>
     <string name="signout">Signout</string>
