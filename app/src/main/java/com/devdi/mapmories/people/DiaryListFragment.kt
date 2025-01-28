@@ -1,4 +1,4 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.people
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devdi.mapmories.R
 
 class DiaryListFragment : Fragment() {
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devdi.mapmories.databinding.ActivityMainBinding
+import com.devdi.mapmories.people.PeopleFragment
 
 class MainActivity : AppCompatActivity() {
 

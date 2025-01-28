@@ -1,4 +1,4 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.people
 
 data class DiaryItem(
     val cityName: String,
