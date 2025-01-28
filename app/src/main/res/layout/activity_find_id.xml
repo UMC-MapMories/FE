@@ -33,7 +33,7 @@
                 android:id="@+id/back_icon"
                 android:layout_width="39dp"
                 android:layout_height="39dp"
-                android:src="@drawable/back"
+                android:src="@drawable/btn_back"
                 android:contentDescription="Back button"
                 android:onClick="@{()->activity.finish()}" />
 
@@ -48,7 +48,7 @@
                 android:id="@+id/star_icon"
                 android:layout_width="39dp"
                 android:layout_height="39dp"
-                android:src="@drawable/star8"
+                android:src="@drawable/ic_star8"
                 android:contentDescription="Star icon" />
         </LinearLayout>
 
@@ -60,7 +60,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="145dp"
             android:layout_alignParentTop="true"
-            android:src="@drawable/forgot_password" />
+            android:src="@drawable/ic_text_forgotpassword" />
 
         <!-- Informational Text -->
         <TextView
@@ -107,7 +107,7 @@
                     android:id="@+id/edittext_phonenumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_edittext"
+                    android:background="@drawable/tv_rounded_edittext"
                     android:hint="Enter your phone number"
                     android:text="@={viewModel.phoneNumber}" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -135,7 +135,7 @@
                     android:id="@+id/edittext_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_edittext"
+                    android:background="@drawable/tv_rounded_edittext"
                     android:hint="Enter your email address"
                     android:text="@={viewModel.id}" />
             </com.google.android.material.textfield.TextInputLayout>

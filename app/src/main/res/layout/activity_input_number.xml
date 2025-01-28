@@ -34,7 +34,7 @@
                 android:id="@+id/back_icon"
                 android:layout_width="39dp"
                 android:layout_height="39dp"
-                android:src="@drawable/back"
+                android:src="@drawable/btn_back"
                 android:contentDescription="Back button"
                 android:onClick="@{()->activity.finish()}" />
 
@@ -49,7 +49,7 @@
                 android:id="@+id/star_icon"
                 android:layout_width="39dp"
                 android:layout_height="39dp"
-                android:src="@drawable/star8"
+                android:src="@drawable/ic_star8"
                 android:contentDescription="Star icon" />
         </LinearLayout>
 
@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={viewModel.inputNumber}"
-                    android:background="@drawable/rounded_edittext"
+                    android:background="@drawable/tv_rounded_edittext"
                     android:hint="@string/phone_number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/signup"
+                android:src="@drawable/btn_signup"
                 android:background="@null"
                 android:contentDescription="@string/apply"
                 android:onClick="@{()->viewModel.savePhoneNumber()}" />

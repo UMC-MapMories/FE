@@ -54,17 +54,17 @@ class DiaryListFragment : Fragment() {
     // 더미 데이터 예제 (추후 실제 데이터 소스로 변경 가능)
     private fun getAllDiaryList(): List<DiaryItem> {
         return listOf(
-            DiaryItem("Canada", R.drawable.canada),
-            DiaryItem("Chicago", R.drawable.chicago),
-            DiaryItem("Seoul", R.drawable.seoul),
-            DiaryItem("Japan", R.drawable.japan)
+            DiaryItem("Canada", R.drawable.dummy_canada),
+            DiaryItem("Chicago", R.drawable.dummy_chicago),
+            DiaryItem("Seoul", R.drawable.dummy_seoul),
+            DiaryItem("Japan", R.drawable.dummy_japan)
         )
     }
 
     private fun getFriendDiaryList(): List<DiaryItem> {
         return listOf(
-            DiaryItem("Seoul", R.drawable.seoul),
-            DiaryItem("Chicago", R.drawable.chicago)
+            DiaryItem("Seoul", R.drawable.dummy_seoul),
+            DiaryItem("Chicago", R.drawable.dummy_chicago)
         )
     }
 }
