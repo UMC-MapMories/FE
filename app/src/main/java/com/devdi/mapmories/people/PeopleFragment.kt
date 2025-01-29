@@ -29,8 +29,9 @@ class PeopleFragment : Fragment() {
             tab.text = when (position) {
                 0 -> "전체 공개"
                 1 -> "친구 공개"
-                else -> null
+                else -> "기타"
             }
+            tab.contentDescription = tab.text
         }.attach()
 
         return view

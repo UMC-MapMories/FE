@@ -1,6 +1,7 @@
 package com.devdi.mapmories.people
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,23 @@ class DiaryListFragment : Fragment() {
             getAllDiaryList() // 전체 목록 데이터
         }
 
-        diaryAdapter = DiaryAdapter(diaryList)
+        diaryAdapter = DiaryAdapter(diaryList) { diaryItem ->
+            Log.d("DiaryListFragment", "Item clicked: ${diaryItem.cityName}") // 디버깅 로그 추가
+
+            val detailFragment = DiaryDetailFragment.newInstance(
+                diaryItem.cityName,
+                diaryItem.imageResId
+            )
+
+            // 컨테이너를 VISIBLE로 변경
+            val detailContainer = requireActivity().findViewById<View>(R.id.detail_fragment_container)
+            detailContainer.visibility = View.VISIBLE
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.detail_fragment_container, detailFragment)
+                .addToBackStack(null)
+                .commit()
+        }
         recyclerView.adapter = diaryAdapter
 
         return view
