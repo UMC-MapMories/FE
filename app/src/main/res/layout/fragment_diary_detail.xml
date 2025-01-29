@@ -1,22 +1,60 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"> <!-- 배경을 흰색으로 설정 -->
 
-    <ImageView
-        android:id="@+id/diary_image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="16dp" />
+    <!-- 뒤로 가기 버튼 -->
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close"
+        app:tint="@android:color/black"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="닫기 버튼"/>
 
-    <TextView
-        android:id="@+id/diary_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="8dp"
-        android:gravity="center" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_below="@id/btn_close"> <!-- 버튼 아래 배치 -->
+
+        <ImageView
+            android:id="@+id/diary_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/diary_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/diary_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:paddingTop="4dp"/>
+
+        <TextView
+            android:id="@+id/diary_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

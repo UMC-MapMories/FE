@@ -52,7 +52,10 @@ class DiaryListFragment : Fragment() {
 
             val detailFragment = DiaryDetailFragment.newInstance(
                 diaryItem.cityName,
-                diaryItem.imageResId
+                diaryItem.imageResId,
+                diaryItem.date,
+                diaryItem.content
+
             )
 
             // 컨테이너를 VISIBLE로 변경
@@ -72,17 +75,17 @@ class DiaryListFragment : Fragment() {
     // 더미 데이터 예제 (추후 실제 데이터 소스로 변경 가능)
     private fun getAllDiaryList(): List<DiaryItem> {
         return listOf(
-            DiaryItem("Canada", R.drawable.dummy_canada),
-            DiaryItem("Chicago", R.drawable.dummy_chicago),
-            DiaryItem("Seoul", R.drawable.dummy_seoul),
-            DiaryItem("Japan", R.drawable.dummy_japan)
+            DiaryItem("Canada", R.drawable.dummy_canada, "2024-02-10", "캐나다에서 스키를 타고 즐거운 하루를 보냈다."),
+            DiaryItem("Chicago", R.drawable.dummy_chicago, "2024-01-28", "시카고의 야경은 정말 아름다웠다."),
+            DiaryItem("Seoul", R.drawable.dummy_seoul, "2024-02-01", "서울에서 맛있는 떡볶이를 먹었다."),
+            DiaryItem("Japan", R.drawable.dummy_japan, "2024-01-15", "일본의 벚꽃은 정말 예뻤다.")
         )
     }
 
     private fun getFriendDiaryList(): List<DiaryItem> {
         return listOf(
-            DiaryItem("Seoul", R.drawable.dummy_seoul),
-            DiaryItem("Chicago", R.drawable.dummy_chicago)
+            DiaryItem("Chicago", R.drawable.dummy_chicago, "2024-01-28", "시카고의 야경은 정말 아름다웠다."),
+            DiaryItem("Seoul", R.drawable.dummy_seoul, "2024-02-01", "서울에서 맛있는 떡볶이를 먹었다.")
         )
     }
 }
