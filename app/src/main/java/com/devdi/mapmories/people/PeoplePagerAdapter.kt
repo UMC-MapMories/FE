@@ -1,4 +1,4 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.people
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
