@@ -74,7 +74,7 @@
             <!-- Find Credentials Text -->
             <TextView
                 android:id="@+id/find_credentials_textview"
-                android:onClick="@{() -> activity.findId()}"
+                android:onClick="@{() -> viewModel.onFindIdClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="20dp"
@@ -102,7 +102,7 @@
             android:background="@drawable/btn_login"
             android:backgroundTint="@null"
             android:contentDescription="Email login button"
-            android:onClick="@{()->viewModel.loginWithSignupEmail()}" />
+            android:onClick="@{()->viewModel.loginEmail()}" />
 
         <!-- Line Separator with OR -->
         <LinearLayout
@@ -164,8 +164,8 @@
             android:backgroundTint="@null"
             android:contentDescription="Facebook login button"
             android:text="@string/signin_facebook"
-            android:textColor="@android:color/white"
-            android:onClick="@{()->activity.loginFacebook()}" />
+            android:textColor="@android:color/white"/>
+            <!--android:onClick="@{()->activity.loginFacebook()}"-->
 
         <!-- Sign-Up Text -->
         <LinearLayout
@@ -199,7 +199,7 @@
                 android:textColor="#6200EE"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{()->viewModel.loginWithSignupEmail()}" />
+                android:onClick="@{()->activity.startSignup()}" />
         </LinearLayout>
 
     </RelativeLayout>

@@ -20,8 +20,8 @@ class InputNumberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_input_number)
-        binding.viewModel=inputNumberViewModel
-        binding.lifecycleOwner = this
+        binding.viewModel=inputNumberViewModel // ViewModel과 연결(데이터 바인딩(binding.viewModel = inputNumberViewModel)을 통해 UI와 ViewModel을 연결.)
+        binding.lifecycleOwner = this  // LiveData와 자동 업데이트 연결(lifecycleOwner 설정으로 LiveData 변경 시 자동으로 UI 업데이트됨.)
         setObserve()
 
     }

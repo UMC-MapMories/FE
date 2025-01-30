@@ -18,7 +18,7 @@ class FindIdViewModel : ViewModel(){
             println(it.result.documents)
             if(it.isSuccessful && it.result.documents.size > 0){
                 var findIdModel = it.result.documents.first().toObject(FindIdModel::class.java)
-                toastMessage.value = "당신의 아이디는 " + findIdModel?.id
+                toastMessage.postValue("당신의 아이디는 ${findIdModel?.id ?: "알 수 없음"}")
             }else{
                 toastMessage.value = "정보가 정확하지 않습니다."
             }
