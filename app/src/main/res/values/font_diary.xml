@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="font_diary" translatable="false">
+        <item>@font/rakkas</item>
+    </array>
+</resources>

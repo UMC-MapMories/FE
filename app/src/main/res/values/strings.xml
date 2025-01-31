@@ -51,4 +51,12 @@
     <!--  etc  -->
     <item name="visible" type="id" />
     <item name="masked" type="id" />
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- diary -->
+    <string name="travel_diary">My Travel Diary</string>
+    <string name="title">Title</string>
+    <string name="edit_diary">Edit your diary</string>
+    <string name="selected_date_format">%d-%d-%d</string>
+    <string name="open_camera">Open camera to add a photo</string>
 </resources>
