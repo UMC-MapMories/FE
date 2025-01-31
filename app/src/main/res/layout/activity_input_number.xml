@@ -77,6 +77,41 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
+
+            <!-- Email Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edittext_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.id}"
+                    android:background="@drawable/tv_rounded_edittext"
+                    android:hint="example@gmail.com" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edittext_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.password}"
+                    android:background="@drawable/tv_rounded_edittext"
+                    android:hint="must be 8 characters"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Phone Number Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginLeft="20dp"
@@ -110,8 +145,8 @@
                 android:layout_marginRight="20dp"
                 android:src="@drawable/btn_signup"
                 android:background="@null"
-                android:contentDescription="@string/apply"
-                android:onClick="@{()->viewModel.savePhoneNumber()}" />
+                android:contentDescription="@string/signup_complete"
+                android:onClick="@{()->viewModel.signup()}" />
         </LinearLayout>
     </RelativeLayout>
 </layout>
