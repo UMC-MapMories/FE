@@ -52,7 +52,8 @@ dependencies {
     implementation("com.facebook.android:facebook-android-sdk:12.3.0")
 
     implementation("com.google.android.gms:play-services-maps:18.1.0") // Google Maps
-    // implementation("com.google.android.gms:play-services-location:21.3.0") // geocoding
+    // implementation("com.google.android.gms:play-services:12.0.1") // Google Fused Location Provider
+    implementation("com.google.android.gms:play-services-location:21.3.0") // Google Geocoding
     // implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("androidx.activity:activity-ktx:1.9.3")
     implementation("androidx.fragment:fragment-ktx:1.8.5")
