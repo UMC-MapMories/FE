@@ -1,19 +1,187 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
-    <data> </data>
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".LoginActivity">
-        <ImageView android:id="@+id/logo_imageview" android:layout_width="match_parent" android:layout_height="300dp" android:src="@drawable/logo_title1"/>
-        <LinearLayout android:id="@+id/edittext_linearlayout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/logo_imageview" android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-                <EditText android:id="@+id/edittext_phonenumber" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/phone_number"/>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.devdi.mapmories.login.FindIdViewModel" />
+        <variable
+            name="activity"
+            type="com.devdi.mapmories.login.FindIdActivity" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".LoginActivity">
+
+        <!-- Top Row with Back and Star Icons -->
+        <LinearLayout
+            android:id="@+id/top_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="20dp"
+            android:gravity="center_vertical">
+
+            <!-- Back Icon -->
+            <ImageView
+                android:id="@+id/back_icon"
+                android:layout_width="39dp"
+                android:layout_height="39dp"
+                android:src="@drawable/btn_back2"
+                android:contentDescription="Back button"
+                android:onClick="@{()->activity.finish()}" />
+
+            <!-- Spacer (fills the gap between back and star icons) -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <!-- Star Icon -->
+            <ImageView
+                android:id="@+id/star_icon"
+                android:layout_width="39dp"
+                android:layout_height="39dp"
+                android:src="@drawable/ic_star8"
+                android:contentDescription="Star icon" />
+        </LinearLayout>
+
+        <!-- Forgot Password Image -->
+        <ImageView
+            android:id="@+id/forgot_password_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="145dp"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_text_forgotpassword" />
+
+        <!-- Informational Text -->
+        <TextView
+            android:id="@+id/dont_worry_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forgot_password_image"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Don't worry! It happens.\nPlease enter the email associated with your account."
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:lineSpacingExtra="2dp"
+            android:textAlignment="viewStart" />
+
+        <!-- Input Fields -->
+        <LinearLayout
+            android:id="@+id/edittext_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dont_worry_text"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <!-- Phone Number Label -->
+            <TextView
+                android:id="@+id/phone_number_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/phone_number"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+
+            <!-- Phone Number Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edittext_phonenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tv_rounded_edittext"
+                    android:hint="Enter your phone number"
+                    android:text="@={viewModel.phoneNumber}" />
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout android:layout_marginTop="10dp" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-                <EditText android:id="@+id/edittext_email" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/email"/>
+
+            <!-- Email Address Label -->
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Email Address"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+
+            <!-- Email Address Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edittext_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tv_rounded_edittext"
+                    android:hint="Enter your email address"
+                    android:text="@={viewModel.id}" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-        <LinearLayout android:layout_marginTop="20dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/edittext_linearlayout" android:layout_alignParentBottom="true" android:orientation="vertical">
-            <androidx.appcompat.widget.AppCompatButton android:id="@+id/find_id_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/find_id"/>
-            <androidx.appcompat.widget.AppCompatButton android:id="@+id/find_password_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/find_password"/>
-            <androidx.appcompat.widget.AppCompatButton android:layout_marginTop="30dp" android:id="@+id/dismiss_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/close"/>
+
+        <!-- Buttons Section -->
+        <LinearLayout
+            android:id="@+id/button_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edittext_linearlayout"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <!-- Find ID Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/find_id_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/find_id"
+                android:onClick="@{() -> viewModel.findMyId()}" />
+
+            <!-- Find Password Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/find_password_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/find_password"
+                android:onClick="@{() -> viewModel.findMyPassword()}" />
+
+            <!-- Close Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/dismiss_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/close"
+                android:onClick="@{()->activity.finish()}" />
         </LinearLayout>
     </RelativeLayout>
 </layout>

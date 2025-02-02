@@ -4,7 +4,7 @@
 - Android Studio Koala 🐨(2024.1.1)
 - target SDK : Android API 35
 - min SDK : API 24
-## ⚙️Tech Stack
+## ⚙️ Tech Stack
 - Jetpack Compose
 - Retrofit, OkHttp
 - Coroutine & Flow
