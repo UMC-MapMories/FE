@@ -14,4 +14,5 @@ class DiaryFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_diary, container, false)
     }
+
 }
