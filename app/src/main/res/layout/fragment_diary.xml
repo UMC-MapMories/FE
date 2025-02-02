@@ -1,12 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/D1_title"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_strip_diary"
+    tools:context=".DiaryFragment">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/txtSelectedDate"
+        android:layout_width="388dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginStart="19dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/rakkas"/>
+
+    <TextView
+        android:id="@+id/d1_title"
+        android:layout_width="53dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="139dp"
+        android:fontFamily="@font/preahvihear"
+        android:text="@string/title"
+        android:textColor="#6E8F92"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edtTitle"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
-        android:text="Diary"
-        android:textSize="26sp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="end"
+        android:layout_marginTop="133dp"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/d1_edit"
+        android:layout_width="335dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="221dp"
+        android:fontFamily="@font/preahvihear"
+        android:text="@string/edit_diary"
+        android:textColor="#6E8F92"
+        android:textSize="24sp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:theme="@style/Widget.MyTravelDiary.Toolbar" />
+    <EditText
+        android:id="@+id/edtDiary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="275dp"
+        android:textSize="16sp"
+        android:minHeight="100dp"
+        android:inputType="textMultiLine"
+        android:visibility="invisible"
+        />
+    <ImageButton
+        android:id="@+id/btn_camera"
+        android:layout_width="350dp"
+        android:layout_height="264dp"
+        android:src="@drawable/ic_camera"
+        android:contentDescription="@string/open_camera"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="506dp"
+        android:background="@color/camerabg"
+        />
+    <ImageView
+        android:id="@+id/imgCamera"
+        android:layout_width="350dp"
+        android:layout_height="264dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="506dp"
+        />
+
+
+
+
 </FrameLayout>

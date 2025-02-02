@@ -1,23 +1,19 @@
 <resources>
     <string name="app_name">MapMories</string>
-
-    <string name="facebook_app_id">1317520209382860</string>
-    <string name="fb_login_protocol_scheme">fb9f506280ba6c8472015a423091cd3935</string>
-    <string name="facebook_client_token">9f506280ba6c8472015a423091cd3935</string>
-
-
+    <string name="facebook_app_id">397161661812167</string>
+    <string name="fb_login_protocol_scheme">fb397161661812167</string>
     <!--  Sign In  -->
-    <string name="email">Email Address</string>
+    <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="apply">Apply</string>
     <string name="find_id">Find my ID</string>
-    <string name="find_id_password">Find my ID And Password</string>
+    <string name="find_id_password">Find my ID And Passwrod</string>
     <string name="find_password">Find my password</string>
     <string name="close">Close</string>
     <string name="signin_email">Signup or Signin by email</string>
-    <string name="signin_google"> </string>
-    <string name="signin_facebook">Signup up with Facebook </string>
+    <string name="signin_google">Google login</string>
+    <string name="signin_facebook">Facebook login</string>
     <string name="signup_complete">Membership success</string>
     <string name="signin_complete">Login success</string>
     <string name="signout">Signout</string>
@@ -63,5 +59,12 @@
     <string name="customer_support">고객센터</string>
     <string name="user_info">회원정보</string>
 
-    user_info
+    <!-- diary -->
+    <string name="travel_diary">My Travel Diary</string>
+    <string name="title">Title</string>
+    <string name="edit_diary">Edit your diary</string>
+    <string name="selected_date_format">%d-%d-%d</string>
+    <string name="open_camera">Open camera to add a photo</string>
+
+
 </resources>

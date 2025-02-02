@@ -33,7 +33,7 @@
                 android:id="@+id/back_icon"
                 android:layout_width="39dp"
                 android:layout_height="39dp"
-                android:src="@drawable/btn_back"
+                android:src="@drawable/btn_back2"
                 android:contentDescription="Back button"
                 android:onClick="@{()->activity.finish()}" />
 
