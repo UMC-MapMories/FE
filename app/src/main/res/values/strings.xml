@@ -53,10 +53,18 @@
     <item name="masked" type="id" />
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="announcements">알림</string>
+    <string name="notifications">공지사항</string>
+    <string name="customer_support">고객센터</string>
+    <string name="user_info">회원정보</string>
+
     <!-- diary -->
     <string name="travel_diary">My Travel Diary</string>
     <string name="title">Title</string>
     <string name="edit_diary">Edit your diary</string>
     <string name="selected_date_format">%d-%d-%d</string>
     <string name="open_camera">Open camera to add a photo</string>
+
+    user_info
 </resources>

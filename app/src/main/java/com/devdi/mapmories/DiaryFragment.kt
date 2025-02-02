@@ -126,4 +126,5 @@ class DiaryFragment : Fragment() {
             btnCamera.visibility = View.GONE
         }
     }
+
 }
