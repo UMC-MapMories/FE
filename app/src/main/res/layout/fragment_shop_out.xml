@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_gravity="center"
     android:background="#F5F5F5">
 
     <!-- 상단 바 -->
@@ -161,55 +159,36 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 다이어리 내용 (ConstraintLayout) -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="634dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_diary"
-        android:padding="16dp">
-
-        <!-- 날짜 텍스트뷰 -->
-
-        <!-- 타이틀 텍스트뷰 -->
-
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="72dp"
-            android:gravity="center"
-            android:text="2024. 12. 20 ▼"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="Title"
-            android:textColor="#6E8F92"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.071"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateTextView" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- 하단 영역 -->
+    <!-- 하단 버튼 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:background="#96B3AF"
-        android:padding="16dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:layout_marginTop="50dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="62dp"
+            android:layout_weight="1"
+            android:minHeight="48dp"
+            android:text="적용하기"
+            android:textSize="20sp"
+            android:background="@drawable/btn_rounded2"
+            android:textColor="@android:color/black"
+            android:layout_marginEnd="8dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="62dp"
+            android:layout_weight="1"
+            android:minHeight="48dp"
+            android:text="구매하기"
+            android:textSize="20sp"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp" />
     </LinearLayout>
 </LinearLayout>

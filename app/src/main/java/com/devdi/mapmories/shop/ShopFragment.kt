@@ -1,10 +1,11 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.shop
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.devdi.mapmories.R
 
 class ShopFragment : Fragment() {
 

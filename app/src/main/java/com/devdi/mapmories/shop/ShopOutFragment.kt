@@ -1,17 +1,17 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.shop
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.devdi.mapmories.R
 
-class SettingsFragment : Fragment() {
-
+class ShopOutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return inflater.inflate(R.layout.fragment_shop_out, container, false)
     }
 }
