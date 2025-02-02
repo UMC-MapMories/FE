@@ -34,5 +34,4 @@ class PeopleFragment : Fragment() {
 
         return view
     }
-
 }
