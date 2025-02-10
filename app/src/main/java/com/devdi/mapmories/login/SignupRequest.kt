@@ -1,4 +1,6 @@
 package com.devdi.mapmories.login
 
-class SignupRequest {
-}
+data class SignupRequest(
+    val email: String,
+    val password: String
+)

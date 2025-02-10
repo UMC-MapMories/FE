@@ -1,4 +1,8 @@
 package com.devdi.mapmories.login
 
-class SignupResponse {
-}
+data class SignupResponse(
+    val isSuccess: Boolean,
+    val code: String,
+    val message: String,
+    val result: String
+)

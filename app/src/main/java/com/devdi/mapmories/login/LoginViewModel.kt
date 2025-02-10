@@ -55,6 +55,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 val user = result.user
 
                 if (user != null) {
+                    // ID Token 가져오기
+                    val idToken = user.getIdToken(true).await().token
+                    Log.d("LoginViewModel", "ID Token: $idToken")
+
                     showMainActivity.call()
                 } else {
                     Log.e("LoginViewModel", "User is null after login")
@@ -86,6 +90,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 val user = result.user
 
                 user?.let {
+                    // ID Token 가져오기
+                    val idTokenResult = user.getIdToken(true).await()
+                    val token = idTokenResult.token
+                    Log.d("LoginViewModel", "Google ID Token: $token")
+
                     val userDoc = withContext(Dispatchers.IO) {
                         firestore.collection("users").document(user.uid).get().await()
                     }

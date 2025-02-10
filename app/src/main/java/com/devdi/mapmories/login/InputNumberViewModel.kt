@@ -1,32 +1,25 @@
 package com.devdi.mapmories.login
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 
 data class FindIdModel(var id : String? = null, var phoneNumber: String?=null)
 
-class InputNumberViewModel : ViewModel() {
-    var auth = FirebaseAuth.getInstance()
-    var firestore = FirebaseFirestore.getInstance()
-    var nextPage = MutableLiveData(false)
+class InputNumberViewModel(application: Application) : AndroidViewModel(application) { // 🔹 AndroidViewModel로 변경
     var id = MutableLiveData("") // 이메일 입력 필드
     var password = MutableLiveData("") // 비밀번호 입력 필드
-    var inputNumber = MutableLiveData("") //전화번호 입력 필드
+    var nextPage = MutableLiveData(false) // 성공 시 다음 페이지 이동
 
-    fun savePhoneNumber() {
-        val findIdModel = FindIdModel(id.value, inputNumber.value)
-        firestore.collection("findIds").document().set(findIdModel).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                nextPage.postValue(true)  // postValue 사용
-                auth.currentUser?.let {
-                    it.sendEmailVerification()
-                } ?: Log.e("InputNumberViewModel", "currentUser is null")
-            }
-        }
+    fun isValidPassword(password: String): Boolean {
+        val specialCharacterRegex = ".*[!@#\$%^&*(),.?\":{}|<>].*".toRegex()
+        return password.length >= 8 && specialCharacterRegex.containsMatchIn(password)
     }
 
     fun signup() {
@@ -34,14 +27,43 @@ class InputNumberViewModel : ViewModel() {
         val pass = password.value ?: ""
 
         if (email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(getApplication(), "이메일과 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-            if (it.isSuccessful) {
-                savePhoneNumber()
-            } else {
-                Log.e("InputNumberViewModel", "회원가입 실패", it.exception)
+        if (!isValidPassword(pass)) {
+            Toast.makeText(getApplication(), "비밀번호는 8자 이상이며, 최소 1개의 특수문자가 포함되어야 합니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        viewModelScope.launch {
+            try {
+                val request = SignupRequest(email, pass)
+                Log.d("SignupRequest", "Sending request: $request")
+
+                val response = RetrofitInstance.api.signup(request)
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    Log.d("SignupResponse", "Received response: ${responseBody.toString()}")
+
+                    if (responseBody?.isSuccess == true) {
+                        nextPage.postValue(true)
+                        Toast.makeText(getApplication(), "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(getApplication(), "회원가입 실패: ${responseBody?.message ?: "서버 응답 없음"}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    val errorBody = response.errorBody()?.string() ?: "응답 본문 없음"
+                    Toast.makeText(getApplication(), "서버 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Log.e("Signup", "HTTP 요청 실패 - 응답 코드: ${response.code()}, 메시지: ${response.message()}, 오류 본문: $errorBody")
+                }
+            } catch (e: HttpException) {
+                Log.e("Signup", "서버 오류: ${e.message}")
+                Toast.makeText(getApplication(), "서버 오류 발생", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Log.e("Signup", "네트워크 오류: ${e.message}")
+                Toast.makeText(getApplication(), "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
             }
         }
     }

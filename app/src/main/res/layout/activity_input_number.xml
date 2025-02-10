@@ -13,7 +13,7 @@
             type="com.devdi.mapmories.login.FindIdActivity" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
@@ -25,9 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
             android:paddingHorizontal="20dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp">
 
             <!-- Back Icon -->
             <ImageView
@@ -38,7 +41,6 @@
                 android:contentDescription="Back button"
                 android:onClick="@{()->activity.finish()}" />
 
-            <!-- Spacer -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -58,25 +60,23 @@
             android:id="@+id/signup_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/top_row"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:text="Sign Up"
             android:textSize="30sp"
             android:textColor="#000000"
-
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/top_row"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp" />
 
         <!-- Input Fields -->
         <LinearLayout
             android:id="@+id/edittext_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/signup_title"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/signup_title"
+            android:layout_marginTop="20dp">
 
             <!-- Email Input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -85,13 +85,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittext_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={viewModel.id}"
                     android:background="@drawable/tv_rounded_edittext"
-                    android:hint="example@gmail.com" />
+                    android:hint="example@gmail.com"
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password Input -->
@@ -102,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittext_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,41 +113,21 @@
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Phone Number Input -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edittext_phonenumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.inputNumber}"
-                    android:background="@drawable/tv_rounded_edittext"
-                    android:hint="@string/phone_number" />
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <!-- Apply Button -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/apply"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edittext_linearlayout"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical">
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="28dp"
+            android:background="@null"
+            android:contentDescription="@string/signup_complete"
+            android:onClick="@{()->viewModel.signup()}"
+            android:src="@drawable/btn_signup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edittext_linearlayout" />
 
-            <ImageButton
-                android:id="@+id/apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/btn_signup"
-                android:background="@null"
-                android:contentDescription="@string/signup_complete"
-                android:onClick="@{()->viewModel.signup()}" />
-        </LinearLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -58,6 +58,13 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.9.3")
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation ("com.google.android.material:material:1.9.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3") // OkHttp 최신 버전
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3") // 로그 인터셉터 추가
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
