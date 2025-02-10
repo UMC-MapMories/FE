@@ -2,13 +2,8 @@ package com.devdi.mapmories.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Input
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.devdi.mapmories.R
@@ -27,6 +22,28 @@ class InputNumberActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_input_number)
         binding.viewModel = inputNumberViewModel
         binding.lifecycleOwner = this
+
+        binding.backIcon.setOnClickListener {
+            finish()
+        }
+
+        inputNumberViewModel.nextPage.observe(this) { isSuccess ->
+            if (isSuccess) {
+                Log.d("Navigation", "회원가입 성공 → ProfileActivity 이동 시도")
+
+                try {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // 🔹 강제 실행
+                    startActivity(intent)
+                    Log.d("Navigation", "ProfileActivity 실행 성공")
+                    finish()
+                } catch (e: Exception) {
+                    Log.e("Navigation", "ProfileActivity 실행 실패: ${e.message}")
+                }
+            }
+        }
+
+
         setObserve()
     }
 

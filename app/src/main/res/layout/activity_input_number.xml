@@ -10,7 +10,7 @@
 
         <variable
             name="activity"
-            type="com.devdi.mapmories.login.FindIdActivity" />
+            type="com.devdi.mapmories.login.InputNumberActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,8 +38,7 @@
                 android:layout_width="39dp"
                 android:layout_height="39dp"
                 android:src="@drawable/btn_back2"
-                android:contentDescription="Back button"
-                android:onClick="@{()->activity.finish()}" />
+                android:contentDescription="Back button" />
 
             <View
                 android:layout_width="0dp"
