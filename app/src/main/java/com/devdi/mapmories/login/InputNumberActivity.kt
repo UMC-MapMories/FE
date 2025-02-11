@@ -29,21 +29,21 @@ class InputNumberActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        inputNumberViewModel.nextPage.observe(this) { isSuccess ->
-            if (isSuccess) {
-                Log.d("Navigation", "회원가입 성공 → ProfileActivity 이동 시도")
-
-                try {
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // 🔹 강제 실행
-                    startActivity(intent)
-                    Log.d("Navigation", "ProfileActivity 실행 성공")
-                    finish()
-                } catch (e: Exception) {
-                    Log.e("Navigation", "ProfileActivity 실행 실패: ${e.message}")
-                }
-            }
-        }
+//        inputNumberViewModel.nextPage.observe(this) { isSuccess ->
+//            if (isSuccess) {
+//                Log.d("Navigation", "회원가입 성공 → ProfileActivity 이동 시도")
+//
+//                try {
+//                    val intent = Intent(this, ProfileActivity::class.java)
+//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // 🔹 강제 실행
+//                    startActivity(intent)
+//                    Log.d("Navigation", "ProfileActivity 실행 성공")
+//                    finish()
+//                } catch (e: Exception) {
+//                    Log.e("Navigation", "ProfileActivity 실행 실패: ${e.message}")
+//                }
+//            }
+//        }
 
 
         setObserve()

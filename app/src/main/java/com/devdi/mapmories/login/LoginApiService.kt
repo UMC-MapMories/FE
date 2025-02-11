@@ -5,12 +5,13 @@ import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface LoginApiService {
     @POST("join")  //
     suspend fun signup(@Body request: SignupRequest): Response<SignupResponse>
 
-    @POST("user/profile")
+    @PUT("user/profile")
     suspend fun updateProfile(@Body request: ProfileRequest): Response<ProfileResponse>
 
     @POST("/login")
