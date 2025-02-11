@@ -34,8 +34,7 @@
                 android:layout_width="39dp"
                 android:layout_height="39dp"
                 android:src="@drawable/btn_back2"
-                android:contentDescription="Back button"
-                android:onClick="@{()->activity.finish()}" />
+                android:contentDescription="Back button" />
 
             <!-- Spacer (fills the gap between back and star icons) -->
             <View
