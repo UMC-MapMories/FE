@@ -24,7 +24,9 @@ class InputNumberActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         binding.backIcon.setOnClickListener {
-            finish()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // 🔹 기존 액티비티를 스택에서 모두 제거
+            startActivity(intent)
         }
 
         inputNumberViewModel.nextPage.observe(this) { isSuccess ->
