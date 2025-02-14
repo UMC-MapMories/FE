@@ -1,4 +1,4 @@
-package com.devdi.mapmories.people
+package com.devdi.mapmories.community
 
 data class DiaryItem(
     val cityName: String,
@@ -6,3 +6,4 @@ data class DiaryItem(
     val date: String,
     val content: String
 )
+

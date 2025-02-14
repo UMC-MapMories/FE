@@ -1,4 +1,4 @@
-package com.devdi.mapmories.people
+package com.devdi.mapmories.community
 
 import android.os.Bundle
 import android.util.Log
@@ -6,14 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devdi.mapmories.R
+import com.devdi.mapmories.RetrofitInstance
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class DiaryListFragment : Fragment() {
 
     private var isFriendList: Boolean = false
     private lateinit var diaryAdapter: DiaryAdapter
+
+    // 필요에 따라 activityViewModels를 사용해 전체 액티비티와 공유하거나 viewModels로 개별 인스턴스를 사용합니다.
+    private val diaryViewModel: DiaryViewModel by viewModels {
+        DiaryViewModelFactory(DiaryRepository(RetrofitInstance.diaryApi))
+    }
 
     companion object {
         fun newInstance(isFriendList: Boolean): DiaryListFragment {
@@ -37,28 +46,15 @@ class DiaryListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_diary_list, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
 
-        // LayoutManager: 2열 Grid
+        // 2열 GridLayoutManager 설정
         recyclerView.layoutManager = GridLayoutManager(context, 2)
 
-        // Adapter 설정
-        val diaryList = if (isFriendList) {
-            getFriendDiaryList() // 친구 목록 데이터
-        } else {
-            getAllDiaryList() // 전체 목록 데이터
-        }
+        diaryAdapter = DiaryAdapter(emptyList()) { diaryItem ->
+            Log.d("DiaryListFragment", "Item clicked: ${diaryItem.title}")
+            // 아이템 클릭 시 diaryId를 전달하여 상세 Fragment 생성
+            val detailFragment = DiaryDetailFragment.newInstance(diaryItem.diaryId)
 
-        diaryAdapter = DiaryAdapter(diaryList) { diaryItem ->
-            Log.d("DiaryListFragment", "Item clicked: ${diaryItem.cityName}") // 디버깅 로그 추가
-
-            val detailFragment = DiaryDetailFragment.newInstance(
-                diaryItem.cityName,
-                diaryItem.imageResId,
-                diaryItem.date,
-                diaryItem.content
-
-            )
-
-            // 컨테이너를 VISIBLE로 변경
+            // 상세화면 컨테이너가 있다면 보이도록 처리
             val detailContainer = requireActivity().findViewById<View>(R.id.detail_fragment_container)
             detailContainer.visibility = View.VISIBLE
 
@@ -72,20 +68,21 @@ class DiaryListFragment : Fragment() {
         return view
     }
 
-    // 더미 데이터 예제 (추후 실제 데이터 소스로 변경 가능)
-    private fun getAllDiaryList(): List<DiaryItem> {
-        return listOf(
-            DiaryItem("Canada", R.drawable.dummy_canada, "2024-02-10", "캐나다에서 스키를 타고 즐거운 하루를 보냈다."),
-            DiaryItem("Chicago", R.drawable.dummy_chicago, "2024-01-28", "시카고의 야경은 정말 아름다웠다."),
-            DiaryItem("Seoul", R.drawable.dummy_seoul, "2024-02-01", "서울에서 맛있는 떡볶이를 먹었다."),
-            DiaryItem("Japan", R.drawable.dummy_japan, "2024-01-15", "일본의 벚꽃은 정말 예뻤다.")
-        )
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    private fun getFriendDiaryList(): List<DiaryItem> {
-        return listOf(
-            DiaryItem("Chicago", R.drawable.dummy_chicago, "2024-01-28", "시카고의 야경은 정말 아름다웠다."),
-            DiaryItem("Seoul", R.drawable.dummy_seoul, "2024-02-01", "서울에서 맛있는 떡볶이를 먹었다.")
-        )
+        // ViewModel의 diaryList LiveData를 관찰하여 어댑터 업데이트
+        diaryViewModel.diaryList.observe(viewLifecycleOwner) { diaries ->
+            // isFriendList 값에 따라 필터링 (예: 공개 여부로 필터 처리)
+            val list = if (isFriendList) {
+                diaries.filter { !it.isOpen }
+            } else {
+                diaries
+            }
+            diaryAdapter.updateList(list)
+        }
+
+        // API를 통해 다이어리 목록 로드
+        diaryViewModel.loadDiaryList()
     }
 }
