@@ -3,6 +3,7 @@ package com.devdi.mapmories
 import android.content.Context
 import com.devdi.mapmories.community.DiaryApi
 import com.devdi.mapmories.login.LoginApiService
+import com.devdi.mapmories.settings.UserApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -44,11 +45,7 @@ object RetrofitInstance {
             .create(LoginApiService::class.java)
     }
 
-    val loginApi: LoginApiService by lazy {
-        retrofit.create(LoginApiService::class.java)
-    }
-
-    val diaryApi: DiaryApi by lazy {
-        retrofit.create(DiaryApi::class.java)
-    }
+    val loginApi: LoginApiService by lazy { retrofit.create(LoginApiService::class.java) }
+    val diaryApi: DiaryApi by lazy { retrofit.create(DiaryApi::class.java) }
+    val userApi: UserApi by lazy { retrofit.create(UserApi::class.java) }
 }

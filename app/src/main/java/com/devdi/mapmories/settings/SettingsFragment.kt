@@ -1,38 +1,86 @@
 package com.devdi.mapmories.settings
 
 import SettingsProfileFragment
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.devdi.mapmories.R
+import com.devdi.mapmories.RetrofitInstance
 import com.devdi.mapmories.databinding.FragmentSettingsBinding
+import com.devdi.mapmories.login.ProfileActivity
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
+    // ViewModel 주입
+    private val settingsViewModel: SettingsViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        // 만약 XML에 viewModel 변수가 정의되어 있다면 바인딩에 할당합니다.
+        binding.viewModel = settingsViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // "프로필 수정" 버튼 클릭 시 SettingsProfileFragment로 이동
+        // 프로필 수정 버튼 클릭 시 ProfileActivity 실행
         binding.btnEditProfile.setOnClickListener {
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 친구 목록 버튼 클릭 -> FriendListFragment로 전환
+        binding.btnFriendList.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, SettingsProfileFragment()) // fragment_container는 현재 Fragment를 담고 있는 레이아웃 ID
-            transaction.addToBackStack(null) // 뒤로 가기 버튼을 눌렀을 때 이전 Fragment로 돌아가도록 설정
+            transaction.replace(R.id.fragment_container, FriendListFragment())
+            transaction.addToBackStack(null)
             transaction.commit()
         }
+
+        // btnAddFriend 클릭 -> AddFriendFragment로 전환
+        binding.btnAddFriend.setOnClickListener {
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, AddFriendFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        // 뷰모델의 프로필 정보를 관찰하여 UI 업데이트
+        settingsViewModel.userProfile.observe(viewLifecycleOwner) { userProfile ->
+            userProfile?.let {
+                binding.tvUserName.text = it.name
+                Glide.with(requireContext())
+                    .load(it.profileImg)
+                    .fallback(R.drawable.ic_profile)       // profileImg가 null인 경우 기본 이미지
+                    .placeholder(R.drawable.ic_profile)    // 로딩 중 표시할 이미지
+                    .error(R.drawable.ic_profile)          // 로드 실패 시 기본 이미지
+                    .into(binding.profileImage)
+            }
+        }
+
+        // Fragment가 보여질 때마다 최신 프로필 정보를 불러옵니다.
+        settingsViewModel.loadUserProfile()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        settingsViewModel.loadUserProfile()  // 서버에 GET 요청을 보내 최신 프로필 정보를 불러옵니다.
     }
 
     override fun onDestroyView() {
