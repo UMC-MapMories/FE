@@ -48,15 +48,14 @@ class SettingsFragment : Fragment() {
         // 친구 목록 버튼 클릭 -> FriendListFragment로 전환
         binding.btnFriendList.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, FriendListFragment())
+            transaction.replace(R.id.frame_layout, FriendListFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }
 
-        // btnAddFriend 클릭 -> AddFriendFragment로 전환
         binding.btnAddFriend.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, AddFriendFragment())
+            transaction.replace(R.id.frame_layout, AddFriendFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }
