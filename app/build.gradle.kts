@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -64,6 +66,11 @@ dependencies {
 
     implementation ("com.squareup.okhttp3:okhttp:4.9.3") // OkHttp 최신 버전
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3") // 로그 인터셉터 추가
+
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -6,3 +6,4 @@ data class DiaryItem(
     val date: String,
     val content: String
 )
+

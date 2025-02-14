@@ -9,24 +9,25 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import com.devdi.mapmories.R
+import com.devdi.mapmories.RetrofitInstance
 
 class DiaryDetailFragment : Fragment() {
 
-    private var diaryTitle: String? = null
-    private var diaryImage: Int = -1
-    private var diaryDate: String? = null  // 날짜 추가
-    private var diaryContent: String? = null // 내용 추가
+    private var diaryId: Long = -1L
+
+    // activityViewModels를 사용하여 동일한 ViewModel 인스턴스를 공유합니다.
+    private val diaryViewModel: DiaryViewModel by activityViewModels {
+        DiaryViewModelFactory(DiaryRepository(RetrofitInstance.diaryApi))
+    }
 
     companion object {
-        fun newInstance(title: String, imageResId: Int, date: String, content: String): DiaryDetailFragment {
+        fun newInstance(diaryId: Long): DiaryDetailFragment {
             val fragment = DiaryDetailFragment()
-            val args = Bundle().apply {
-                putString("diaryTitle", title)
-                putInt("diaryImage", imageResId)
-                putString("diaryDate", date)   // 날짜 추가
-                putString("diaryContent", content)  // 내용 추가
-            }
+            val args = Bundle()
+            args.putLong("diaryId", diaryId)
             fragment.arguments = args
             return fragment
         }
@@ -34,12 +35,9 @@ class DiaryDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            diaryTitle = it.getString("diaryTitle")
-            diaryImage = it.getInt("diaryImage")
-            diaryDate = it.getString("diaryDate") // 날짜 받기
-            diaryContent = it.getString("diaryContent") // 내용 받기
-        }
+        diaryId = arguments?.getLong("diaryId") ?: -1L
+        // ViewModel을 통해 상세 데이터를 로드
+        diaryViewModel.loadDiaryDetail(diaryId)
     }
 
     override fun onCreateView(
@@ -53,19 +51,26 @@ class DiaryDetailFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        // 다이어리 데이터 표시
-        view.findViewById<TextView>(R.id.diary_title).text = diaryTitle
-        view.findViewById<ImageView>(R.id.diary_image).setImageResource(diaryImage)
-        view.findViewById<TextView>(R.id.diary_date).text = "📅 날짜: $diaryDate" // 날짜 추가
-        view.findViewById<TextView>(R.id.diary_content).text = diaryContent // 내용 추가
+        // ViewModel의 diaryDetail LiveData를 관찰하여 UI 업데이트
+        diaryViewModel.diaryDetail.observe(viewLifecycleOwner) { diary ->
+            view.findViewById<TextView>(R.id.diary_title).text = diary.title ?: "제목 없음"
+            // imgUrl이 URL이라면 Glide 등으로 이미지 로딩 (아래는 Glide 예제)
+            Glide.with(this)
+                .load(diary.imgUrl)
+                .fallback(R.drawable.ic_default_image)      // imgUrl이 null인 경우 기본 이미지 로드
+                .placeholder(R.drawable.ic_default_image)  // 로딩 중 보여줄 이미지 (선택 사항)
+                .error(R.drawable.ic_default_image)         // 로드 실패 시 기본 이미지
+                .into(view.findViewById<ImageView>(R.id.diary_image))
+            view.findViewById<TextView>(R.id.diary_date).text = "📅 날짜: ${diary.createdAt ?: "날짜 없음"}"
+            view.findViewById<TextView>(R.id.diary_content).text = diary.content ?: "내용 없음"
+        }
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // 물리 Back 버튼도 뒤로 가기 처리
+        // 물리적 Back 버튼도 뒤로 가기 처리
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 parentFragmentManager.popBackStack()

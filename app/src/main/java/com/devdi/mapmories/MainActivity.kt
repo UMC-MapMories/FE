@@ -7,9 +7,10 @@ import com.devdi.mapmories.databinding.ActivityMainBinding
 import com.devdi.mapmories.community.PeopleFragment
 import com.devdi.mapmories.settings.SettingsFragment
 import com.devdi.mapmories.shop.ShopFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

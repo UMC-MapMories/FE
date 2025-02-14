@@ -1,4 +1,34 @@
 package com.devdi.mapmories.community
 
-class DiaryViewModel {
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+
+class DiaryViewModel(private val repository: DiaryRepository) : ViewModel() {
+
+    private val _diaryList = MutableLiveData<List<Diary>>()
+    val diaryList: LiveData<List<Diary>> get() = _diaryList
+
+    private val _diaryDetail = MutableLiveData<Diary>()
+    val diaryDetail: LiveData<Diary> get() = _diaryDetail
+
+    fun loadDiaryList() {
+        viewModelScope.launch {
+            val diaries = repository.fetchDiaryList()
+            diaries?.let {
+                _diaryList.postValue(it)
+            }
+        }
+    }
+
+    fun loadDiaryDetail(diaryId: Long) {
+        viewModelScope.launch {
+            val diary = repository.fetchDiaryDetail(diaryId)
+            diary?.let {
+                _diaryDetail.postValue(it)
+            }
+        }
+    }
 }
