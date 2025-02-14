@@ -1,4 +1,4 @@
-package com.devdi.mapmories.people
+package com.devdi.mapmories.community
 
 import android.util.Log
 import android.view.LayoutInflater

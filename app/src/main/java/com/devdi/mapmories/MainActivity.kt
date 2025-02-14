@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devdi.mapmories.databinding.ActivityMainBinding
-import com.devdi.mapmories.people.PeopleFragment
+import com.devdi.mapmories.community.PeopleFragment
 import com.devdi.mapmories.settings.SettingsFragment
 import com.devdi.mapmories.shop.ShopFragment
 
