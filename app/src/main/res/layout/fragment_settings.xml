@@ -62,7 +62,7 @@
                     android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{viewModel.userProfile != null ? viewModel.userProfile.name : "김철수"}'
+                    android:text='@{viewModel.userProfile != null ? viewModel.userProfile.name : "이름없음"}'
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp"
@@ -93,11 +93,11 @@
                     android:id="@+id/btnFriendList"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="친구 목록"
                     android:background="@drawable/rounded_button"
-                    android:textColor="@android:color/white"
-                    android:layout_marginStart="8dp"/>
+                    android:text="요청 목록"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
             <!-- 설정 리스트 -->
@@ -122,12 +122,22 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_line"
                     android:padding="16dp"
+                    android:text="@string/request_list"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/my_button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_line"
+                    android:padding="16dp"
                     android:text="@string/notifications"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/my_button3"
+                    android:id="@+id/my_button4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_line"
@@ -137,7 +147,7 @@
                     android:textColor="@android:color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/my_button4"
+                    android:id="@+id/my_button5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_line"

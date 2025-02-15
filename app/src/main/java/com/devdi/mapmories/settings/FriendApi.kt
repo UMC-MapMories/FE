@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface FriendApi {
@@ -11,5 +12,15 @@ interface FriendApi {
     suspend fun searchFriends(@Query("name") name: String): Response<FriendSearchResponse>
 
     @POST("friends/sendRequest")
-    suspend fun sendFriendRequest(@Body request: FriendRequestBody): Response<FriendRequestResponse>
+    suspend fun sendFriendRequest(@Query("toUserId") toUserId: Long): Response<FriendRequestResponse>
+
+    @GET("friends/requests")
+    suspend fun getFriendRequests(): Response<FriendRequestListResponse>
+
+    @POST("friends/acceptRequest/{fromUserId}")
+    suspend fun acceptFriendRequest(@Path("fromUserId") fromUserId: Long): Response<FriendActionResponse>
+
+    @POST("friends/rejectRequest/{fromUserId}")
+    suspend fun rejectFriendRequest(@Path("fromUserId") fromUserId: Long): Response<FriendActionResponse>
 }
+

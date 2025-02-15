@@ -30,7 +30,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        // 만약 XML에 viewModel 변수가 정의되어 있다면 바인딩에 할당합니다.
+        // 만약 XML에 viewModel 변수가 정의되어 있다면 바인딩에 할당
         binding.viewModel = settingsViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -73,13 +73,13 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        // Fragment가 보여질 때마다 최신 프로필 정보를 불러옵니다.
+        // Fragment가 보여질 때마다 최신 프로필 정보를 불러옴
         settingsViewModel.loadUserProfile()
     }
 
     override fun onResume() {
         super.onResume()
-        settingsViewModel.loadUserProfile()  // 서버에 GET 요청을 보내 최신 프로필 정보를 불러옵니다.
+        settingsViewModel.loadUserProfile()  // 서버에 GET 요청을 보내 최신 프로필 정보를 불러옴
     }
 
     override fun onDestroyView() {

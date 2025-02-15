@@ -1,9 +1,8 @@
-package com.devdi.mapmories.settings
+package com.devdi.mapmories
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.devdi.mapmories.R
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {

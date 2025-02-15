@@ -65,6 +65,7 @@
     <string name="edit_diary">Edit your diary</string>
     <string name="selected_date_format">%d-%d-%d</string>
     <string name="open_camera">Open camera to add a photo</string>
+    <string name="request_list">친구목록</string>
 
 
 </resources>
