@@ -1,6 +1,5 @@
 package com.devdi.mapmories.settings
 
-import SettingsProfileFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.devdi.mapmories.R
-import com.devdi.mapmories.RetrofitInstance
 import com.devdi.mapmories.databinding.FragmentSettingsBinding
 import com.devdi.mapmories.login.ProfileActivity
-import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
 
@@ -48,7 +43,7 @@ class SettingsFragment : Fragment() {
         // 친구 목록 버튼 클릭 -> FriendListFragment로 전환
         binding.btnFriendList.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout, FriendListFragment())
+            transaction.replace(R.id.frame_layout, FriendsContainerFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }

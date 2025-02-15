@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        tools:context=".FriendListFragment">
+        tools:context=".FriendRequestFragment">
 
-        <!-- 친구 목록 RecyclerView -->
+        <!-- 친구 요청 목록 RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFriendList"
+            android:id="@+id/rvFriendRequests"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="8dp"
@@ -24,6 +24,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_friend_list" />
+            tools:listitem="@layout/item_friend_request" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

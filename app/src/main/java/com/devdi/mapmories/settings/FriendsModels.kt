@@ -46,3 +46,11 @@ data class FriendActionResponse(
     val message: String,
     val result: FriendRequestResult
 )
+
+data class FriendListResponse(
+    val isSuccess: Boolean,
+    val code: String,
+    val message: String,
+    val result: List<Friend>
+)
+

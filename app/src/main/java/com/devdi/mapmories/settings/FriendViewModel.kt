@@ -16,6 +16,9 @@ class FriendViewModel : ViewModel() {
     private val _friendRequests = MutableLiveData<List<Friend>>()
     val friendRequests: LiveData<List<Friend>> get() = _friendRequests
 
+    private val _friendList = MutableLiveData<List<Friend>>()
+    val friendList: LiveData<List<Friend>> get() = _friendList
+
     // 🔹 친구 검색
     fun searchFriends(name: String) {
         viewModelScope.launch {
@@ -109,4 +112,38 @@ class FriendViewModel : ViewModel() {
             }
         }
     }
+
+    fun loadFriendList() {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.friendApi.getFriendList()
+                if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    _friendList.postValue(response.body()?.result ?: emptyList())
+                } else {
+                    _friendList.postValue(emptyList())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _friendList.postValue(emptyList())
+            }
+        }
+    }
+
+    fun deleteFriend(toUserId: Long, onResult: (Boolean, String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.friendApi.deleteFriend(toUserId)
+                if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    onResult(true, response.body()?.message ?: "삭제 성공")
+                    loadFriendList() // 삭제 후 목록 새로고침
+                } else {
+                    onResult(false, response.body()?.message ?: "삭제 실패")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                onResult(false, e.message ?: "오류 발생")
+            }
+        }
+    }
+
 }

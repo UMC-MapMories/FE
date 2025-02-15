@@ -2,7 +2,6 @@ package com.devdi.mapmories.settings
 
 import androidx.lifecycle.*
 import com.devdi.mapmories.RetrofitInstance
-import com.devdi.mapmories.settings.UserProfile
 import kotlinx.coroutines.launch
 
 class SettingsViewModel : ViewModel() {

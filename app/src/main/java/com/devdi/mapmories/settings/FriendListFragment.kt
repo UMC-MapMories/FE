@@ -16,8 +16,9 @@ class FriendListFragment : Fragment() {
     private var _binding: FragmentFriendListBinding? = null
     private val binding get() = _binding!!
 
-    private val friendViewModel: FriendViewModel by viewModels()
-    private lateinit var friendRequestAdapter: FriendRequestAdapter
+    // ViewModel은 탭 컨테이너의 activity 범위로 공유합니다.
+    private val friendViewModel: FriendViewModel by viewModels({ requireActivity() })
+    private lateinit var friendListAdapter: FriendListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,36 +30,24 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        friendRequestAdapter = FriendRequestAdapter(emptyList(),
-            onAcceptClick = { friendId ->
-                friendViewModel.acceptFriendRequest(friendId) { success, message ->
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                    if (success) {
-                        friendViewModel.loadFriendRequests()
-                    }
-                }
-            },
-            onRejectClick = { friendId ->
-                friendViewModel.rejectFriendRequest(friendId) { success, message ->
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                    if (success) {
-                        friendViewModel.loadFriendRequests()
-                    }
-                }
+        friendListAdapter = FriendListAdapter(emptyList()) { friendId ->
+            friendViewModel.deleteFriend(friendId) { success, message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
-        )
-
-        binding.rvFriendRequests.apply {
-            adapter = friendRequestAdapter
+        }
+        binding.rvFriendList.apply {
+            adapter = friendListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-        friendViewModel.friendRequests.observe(viewLifecycleOwner) { requests ->
-            friendRequestAdapter.updateList(requests)
+        friendViewModel.friendList.observe(viewLifecycleOwner) { list ->
+            friendListAdapter.updateList(list)
         }
+        friendViewModel.loadFriendList()
+    }
 
-        friendViewModel.loadFriendRequests()
+    override fun onResume() {
+        super.onResume()
+        friendViewModel.loadFriendList()
     }
 
     override fun onDestroyView() {

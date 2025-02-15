@@ -36,27 +36,14 @@
             app:layout_constraintTop_toTopOf="@id/ivProfile"
             app:layout_constraintBottom_toBottomOf="@id/ivProfile"
             app:layout_constraintStart_toEndOf="@id/ivProfile"
-            app:layout_constraintEnd_toStartOf="@id/btnAccept" />
+            app:layout_constraintEnd_toStartOf="@id/btnDelete" />
 
-        <!-- 수락 버튼 -->
+        <!-- 삭제 버튼 -->
         <Button
-            android:id="@+id/btnAccept"
+            android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="수락"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnReject"
-            android:layout_marginEnd="8dp" />
-
-        <!-- 거절 버튼 -->
-        <Button
-            android:id="@+id/btnReject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="거절"
+            android:text="삭제"
             android:backgroundTint="@color/black"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"

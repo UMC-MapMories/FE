@@ -36,14 +36,5 @@
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnViewDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="더보기"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_rounded"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp" />
     </LinearLayout>
 </layout>

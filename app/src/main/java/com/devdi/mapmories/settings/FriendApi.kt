@@ -2,6 +2,7 @@ package com.devdi.mapmories.settings
 
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -22,5 +23,11 @@ interface FriendApi {
 
     @POST("friends/rejectRequest/{fromUserId}")
     suspend fun rejectFriendRequest(@Path("fromUserId") fromUserId: Long): Response<FriendActionResponse>
+
+    @GET("friends/list")
+    suspend fun getFriendList(): Response<FriendListResponse>
+
+    @DELETE("friends/delete")
+    suspend fun deleteFriend(@Query("toUserId") toUserId: Long): Response<FriendActionResponse>
 }
 
