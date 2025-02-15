@@ -3,6 +3,9 @@
 
     <data>
         <variable
+            name="fragment"
+            type="com.devdi.mapmories.settings.SettingsFragment" />
+        <variable
             name="viewModel"
             type="com.devdi.mapmories.settings.SettingsViewModel" />
     </data>

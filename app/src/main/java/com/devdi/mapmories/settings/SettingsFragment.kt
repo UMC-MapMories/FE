@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.devdi.mapmories.R
 import com.devdi.mapmories.databinding.FragmentSettingsBinding
+import com.devdi.mapmories.login.LoginActivity
 import com.devdi.mapmories.login.ProfileActivity
 
 class SettingsFragment : Fragment() {
@@ -53,6 +55,22 @@ class SettingsFragment : Fragment() {
             transaction.replace(R.id.frame_layout, AddFriendFragment())
             transaction.addToBackStack(null)
             transaction.commit()
+        }
+
+        // 로그아웃 버튼(my_button5) 클릭 처리
+        binding.myButton5.setOnClickListener {
+            settingsViewModel.logout()
+        }
+
+        // ViewModel의 로그아웃 결과 관찰
+        settingsViewModel.logoutResult.observe(viewLifecycleOwner) { result ->
+            val (success, message) = result
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            if (success) {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
 
         // 뷰모델의 프로필 정보를 관찰하여 UI 업데이트
