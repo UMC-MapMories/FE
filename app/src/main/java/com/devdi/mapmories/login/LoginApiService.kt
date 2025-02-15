@@ -22,5 +22,8 @@ interface LoginApiService {
     suspend fun loginWithGoogle(
         @Header("X-Google-Authorization") token: String
     ): Response<LoginResponse>
+
+    @POST("customLogout")
+    suspend fun customLogout(): Response<LogoutResponse>
 }
 

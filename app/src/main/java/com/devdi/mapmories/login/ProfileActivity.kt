@@ -28,16 +28,20 @@ class ProfileActivity : AppCompatActivity() {
         binding.viewModel = profileViewModel
         binding.lifecycleOwner = this
 
+        // btnBack 클릭 시 Activity 종료 (SettingsFragment로 돌아감)
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // 🔹 이미지 선택 이벤트 감지
         profileViewModel.pickImageEvent.observe(this, Observer {
             pickImageFromGallery()
         })
 
-        // 🔹 프로필 저장 후 LoginActivity로 이동
+        // 🔹 프로필 저장 후 Activity 종료 (SettingsFragment로 돌아감)
         profileViewModel.profileUpdated.observe(this) {
             if (it) {
                 Toast.makeText(this, "프로필 등록 완료!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginActivity::class.java)) // 🔹 LoginActivity로 이동
                 finish() // 🔹 LoginActivity 실행 후 현재 화면 종료 (순서 변경)
             }
         }
