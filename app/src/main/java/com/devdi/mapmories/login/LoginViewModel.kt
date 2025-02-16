@@ -138,6 +138,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 Log.d("LoginViewModel", "Sending token to server...")
+                // "Bearer " 접두어 없이, 토큰을 그대로 전달합니다.
                 val response = RetrofitInstance.api.loginWithGoogle(firebaseToken)
 
                 if (response.isSuccessful) {
