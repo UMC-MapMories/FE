@@ -17,7 +17,7 @@ interface LoginApiService {
     @POST("/login")
     suspend fun login(@Body request: LoginRequest): Response<Void>
 
-    @POST("login/google")
+    @POST("join/Google")
     @Headers("Content-Type: application/json")
     suspend fun loginWithGoogle(
         @Header("X-Google-Authorization") token: String
