@@ -14,5 +14,10 @@
         <item name="fontFamily">@font/rakkas</item>
         <item name="android:elevation">4dp</item>
     </style>
+    <style name="CustomDatePickerDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">#009668</item> <!-- 버튼 색상 -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- 버튼 텍스트 색상 -->
+        <item name="colorSurface">#009668</item>
+    </style>
 
 </resources>

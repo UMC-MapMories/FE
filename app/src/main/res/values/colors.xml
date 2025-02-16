@@ -15,6 +15,6 @@
     <color name="colorEmailSignInPressed">#004D40</color>
     <color name="colorToolBar">#96B3AF</color>
     <color name="camerabg">#F0FFF0</color>
-
+    <color name="transparent">#00000000</color>
 
 </resources>
