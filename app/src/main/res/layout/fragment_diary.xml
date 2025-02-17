@@ -1,94 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/D1_title"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_strip_diary"
-    tools:context=".DiaryFragment">
+    tools:context="com.devdi.mapmories.diary.DiaryFragment">
 
-    <TextView
-        android:id="@+id/txtSelectedDate"
-        android:layout_width="388dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginStart="19dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/rakkas"/>
-
-    <TextView
-        android:id="@+id/d1_title"
-        android:layout_width="53dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="139dp"
-        android:fontFamily="@font/preahvihear"
-        android:text="@string/title"
-        android:textColor="#6E8F92"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/edtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="330dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="133dp"
-        android:ems="10"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:background="@color/transparent"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/d1_edit"
-        android:layout_width="335dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="221dp"
-        android:fontFamily="@font/preahvihear"
-        android:text="@string/edit_diary"
-        android:textColor="#6E8F92"
-        android:textSize="24sp" />
-
+    <!-- 상단 ToolBar (우측에 Save 버튼 포함) -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="86dp"
-        android:theme="@style/Widget.MyTravelDiary.Toolbar" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/Widget.MyTravelDiary.Toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Save 버튼: ToolBar 우측에 배치 -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="end"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- 선택된 날짜 표시 -->
+    <TextView
+        android:id="@+id/txtSelectedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2025-02-17"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/rakkas"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- 타이틀과 위도/경도 입력 영역 (수평 LinearLayout) -->
+    <LinearLayout
+        android:id="@+id/title_location_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/txtSelectedDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp">
+
+        <!-- [왼쪽] Title 텍스트와 제목 입력 EditText (글씨가 줄에 맞춰지도록 includeFontPadding="false" 추가) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/d1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textColor="#6E8F92"
+                android:textSize="24sp"
+                android:fontFamily="@font/preahvihear" />
+
+            <EditText
+                android:id="@+id/edtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter title"
+                android:textSize="20sp"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:background="@color/transparent"
+                android:inputType="text"
+                android:includeFontPadding="false"
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <!-- [오른쪽] 위도/경도 입력 영역 (글씨는 Title과 동일한 폰트 적용) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <EditText
+                android:id="@+id/edtLatitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Lat"
+                android:textSize="16sp"
+                android:minWidth="64dp"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:inputType="numberSigned|numberDecimal"
+                android:fontFamily="@font/preahvihear"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/edtLongitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Lng"
+                android:textSize="16sp"
+                android:minWidth="64dp"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:inputType="numberSigned|numberDecimal"
+                android:fontFamily="@font/preahvihear"
+                android:singleLine="true"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 위도/경도 입력에 따른 국기(예: 해당 국가의 깃발)를 표시하는 영역 -->
+    <ImageView
+        android:id="@+id/imgFlag"
+        android:layout_width="48dp"
+        android:layout_height="32dp"
+        android:contentDescription="Flag"
+        app:layout_constraintTop_toBottomOf="@id/title_location_layout"
+        app:layout_constraintStart_toStartOf="@id/title_location_layout"
+        android:layout_marginTop="8dp" />
+
+    <!-- 'Edit your diary' 텍스트 (작성 영역 라벨) -->
+    <TextView
+        android:id="@+id/d1_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_diary"
+        android:textColor="#6E8F92"
+        android:textSize="24sp"
+        android:fontFamily="@font/preahvihear"
+        app:layout_constraintTop_toBottomOf="@id/imgFlag"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- 일기 내용 입력 EditText (줄 배경에 맞춰 입력, includeFontPadding="false" 추가) -->
     <EditText
         android:id="@+id/edtDiary"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="19dp"
-        android:layout_marginRight="19dp"
-        android:layout_marginTop="275dp"
-        android:textSize="16sp"
-        android:minHeight="100dp"
+        android:hint="Write your diary..."
         android:background="@color/transparent"
         android:inputType="textMultiLine"
-        android:visibility="invisible"
-        />
+        android:textSize="16sp"
+        android:minHeight="100dp"
+        android:padding="8dp"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/d1_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+    <!-- 카메라 버튼 (필요 시 이미지 촬영 기능) -->
     <ImageButton
         android:id="@+id/icCamera"
         android:layout_width="350dp"
         android:layout_height="264dp"
         android:src="@drawable/ic_camera"
         android:contentDescription="@string/open_camera"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="400dp"
         android:background="@color/camerabg"
-        />
+        app:layout_constraintTop_toBottomOf="@id/edtDiary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- 카메라로 촬영된 이미지(필요 시) -->
     <ImageView
         android:id="@+id/imgCamera"
         android:layout_width="350dp"
         android:layout_height="264dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="400dp"
-        />
+        app:layout_constraintTop_toTopOf="@id/icCamera"
+        app:layout_constraintStart_toStartOf="@id/icCamera"
+        app:layout_constraintEnd_toEndOf="@id/icCamera"
+        android:contentDescription="Camera image" />
 
-
-
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
