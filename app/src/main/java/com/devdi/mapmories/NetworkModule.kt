@@ -3,6 +3,8 @@ package com.devdi.mapmories
 import android.content.Context
 import android.content.SharedPreferences
 import com.devdi.mapmories.community.DiaryApi
+import com.devdi.mapmories.diary.GeocodingRepository
+import com.devdi.mapmories.diary.GeocodingRepositoryImpl
 import com.devdi.mapmories.login.LoginApiService
 import dagger.Module
 import dagger.Provides
@@ -82,4 +84,10 @@ object NetworkModule {
     fun provideDiaryApi(retrofit: Retrofit): DiaryApi {
         return retrofit.create(DiaryApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideGeocodingRepository(
+        @ApplicationContext context: Context
+    ): GeocodingRepository = GeocodingRepositoryImpl(context)
 }

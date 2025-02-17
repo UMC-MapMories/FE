@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devdi.mapmories.databinding.FragmentHomeBinding
 import com.devdi.mapmories.community.PeopleFragment
+import com.devdi.mapmories.diary.DiaryFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
