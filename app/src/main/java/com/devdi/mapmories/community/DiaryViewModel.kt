@@ -14,9 +14,13 @@ class DiaryViewModel(private val repository: DiaryRepository) : ViewModel() {
     private val _diaryDetail = MutableLiveData<Diary>()
     val diaryDetail: LiveData<Diary> get() = _diaryDetail
 
-    fun loadDiaryList() {
+    fun loadDiaryList(isFriendList: Boolean) {
         viewModelScope.launch {
-            val diaries = repository.fetchDiaryList()
+            val diaries = if (isFriendList) {
+                repository.fetchFriendDiaryList() // 🔥 친구 다이어리 API 호출
+            } else {
+                repository.fetchDiaryList() // 🔥 전체 다이어리 API 호출
+            }
             diaries?.let {
                 _diaryList.postValue(it)
             }

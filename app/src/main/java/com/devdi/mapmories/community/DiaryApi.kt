@@ -10,8 +10,11 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface DiaryApi {
-    @GET("diary")
+    @GET("diary/all")
     suspend fun getDiaries(): Response<DiaryListResponse>
+
+    @GET("diary/friends")
+    suspend fun getFriendDiaries(): Response<DiaryListResponse>
 
     @GET("diary/{diaryId}")
     suspend fun getDiaryDetail(@Path("diaryId") diaryId: Long): Response<DiaryDetailResponse>
