@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- CoordinatorLayout 영역: TabLayout, ViewPager2, 로그아웃 버튼 -->
+        <!-- CoordinatorLayout 영역: TabLayout, ViewPager2 -->
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="0dp"
@@ -45,12 +45,13 @@
                     app:tabBackground="@drawable/tab_background_selector" />
             </com.google.android.material.appbar.AppBarLayout>
 
+            <!-- ViewPager2에 편지지 선 배경 적용 -->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/background_strip_diary"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

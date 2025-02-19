@@ -14,12 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- 배경 패턴이 적용될 LinearLayout -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="@android:color/white">
+            android:background="@drawable/background_strip_diary">
 
             <!-- 상단 네비게이션 -->
             <LinearLayout
@@ -29,13 +30,11 @@
                 android:gravity="center_vertical"
                 android:padding="8dp">
 
-                <!-- 뒤로가기 버튼 (필요시 onClick 처리) -->
                 <View
                     android:layout_width="0dp"
                     android:layout_height="12dp"
                     android:layout_weight="1"/>
 
-                <!-- 오른쪽 사용자 추가 아이콘 -->
                 <ImageView
                     android:id="@+id/btnAddFriend"
                     android:layout_width="36dp"
@@ -52,7 +51,6 @@
                 android:gravity="center"
                 android:layout_marginVertical="16dp">
 
-                <!-- 프로필 이미지: app:imageUrl 속성을 통해 BindingAdapter로 로드 -->
                 <ImageView
                     android:id="@+id/profileImage"
                     android:layout_width="100dp"
@@ -60,7 +58,6 @@
                     android:src="@drawable/ic_profile"
                     app:imageUrl="@{viewModel.userProfile != null ? viewModel.userProfile.profileImg : null}"/>
 
-                <!-- 프로필 이름 -->
                 <TextView
                     android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
@@ -88,19 +85,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="프로필 수정"
-                    android:background="@drawable/rounded_button"
-                    android:textColor="@android:color/white"
+                    android:background="@drawable/rounded_button_custom"
+                    android:textColor="@android:color/black"
                     android:layout_marginEnd="8dp"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnFriendList"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/rounded_button_custom"
                     android:text="친구 목록"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="8dp"/>
             </LinearLayout>
 
             <!-- 설정 리스트 -->
@@ -113,7 +110,7 @@
                     android:id="@+id/my_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_line"
+                    android:background="@drawable/btn_line_custom"
                     android:padding="16dp"
                     android:text="@string/user_info"
                     android:textColor="@android:color/black"
@@ -123,7 +120,7 @@
                     android:id="@+id/my_button2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_line"
+                    android:background="@drawable/btn_line_custom"
                     android:padding="16dp"
                     android:text="@string/notifications"
                     android:textStyle="bold"
@@ -133,7 +130,7 @@
                     android:id="@+id/my_button3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_line"
+                    android:background="@drawable/btn_line_custom"
                     android:padding="16dp"
                     android:text="@string/announcements"
                     android:textStyle="bold"
@@ -143,7 +140,7 @@
                     android:id="@+id/my_button4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_line"
+                    android:background="@drawable/btn_line_custom"
                     android:padding="16dp"
                     android:text="@string/customer_support"
                     android:textStyle="bold"
@@ -153,7 +150,7 @@
                     android:id="@+id/my_button5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_line"
+                    android:background="@drawable/btn_line_custom"
                     android:padding="16dp"
                     android:text="@string/logout"
                     android:textColor="@android:color/black"

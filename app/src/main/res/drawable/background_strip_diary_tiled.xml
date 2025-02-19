@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@drawable/background_strip_diary"
+            android:tileMode="repeat"
+            android:gravity="fill"/>
+    </item>
+</layer-list>

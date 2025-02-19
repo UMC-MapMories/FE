@@ -17,4 +17,7 @@
     <color name="camerabg">#F0FFF0</color>
     <color name="transparent">#00000000</color>
 
+    <color name="active">#3F5A56</color>
+    <color name="deactive">#8096B3AF</color>
+
 </resources>
