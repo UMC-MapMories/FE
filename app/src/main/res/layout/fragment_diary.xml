@@ -18,7 +18,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Save 버튼 -->
+        <!-- 가운데 정렬된 타이틀 -->
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/travel_diary"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/rakkas"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    <!-- Save 버튼 -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"

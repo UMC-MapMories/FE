@@ -4,21 +4,47 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="16dp">
+    android:fitsSystemWindows="true"> <!-- 🔥 상태바와 맞닿도록 설정 -->
 
+    <!-- 툴바 추가 -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorToolBar"
+        app:title=""
+        app:titleTextColor="@android:color/black"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+    <!-- 가운데 정렬된 타이틀 (Toolbar 내부에 배치) -->
+    <TextView
+        android:id="@+id/toolbarTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Travel Diary"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/rakkas"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+</androidx.appcompat.widget.Toolbar>
+
+    <!-- 탭 레이아웃 -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         app:tabBackground="@drawable/tab_background_selector"
         app:tabTextColor="@color/tab_text_selector"
         app:tabSelectedTextColor="@android:color/white"
         app:tabIndicatorColor="@android:color/transparent"
         android:contentDescription="탭 레이아웃입니다" />
 
+    <!-- 뷰페이저 -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</LinearLayout>
+    </LinearLayout>
