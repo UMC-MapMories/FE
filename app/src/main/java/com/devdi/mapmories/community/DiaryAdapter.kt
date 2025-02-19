@@ -50,6 +50,7 @@ class DiaryAdapter(
 
     fun updateList(newList: List<Diary>) {
         diaryList = newList
+        Log.d("DiaryAdapter", "어댑터 데이터 업데이트됨: ${diaryList.size} 개") // 🔥 로그 추가
         notifyDataSetChanged()
     }
 }

@@ -95,7 +95,7 @@
         <!-- Email Login Button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/independent_login_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -104,7 +104,8 @@
             android:background="@drawable/btn_login"
             android:backgroundTint="@null"
             android:contentDescription="Email login button"
-            android:onClick="@{()->viewModel.loginEmail()}" />
+            android:onClick="@{()->viewModel.loginEmail()}"
+            android:layout_centerHorizontal="true"/>
 
         <!-- Line Separator with OR -->
         <LinearLayout

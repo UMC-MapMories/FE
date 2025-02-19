@@ -73,16 +73,25 @@ class DiaryListFragment : Fragment() {
 
         // ViewModel의 diaryList LiveData를 관찰하여 어댑터 업데이트
         diaryViewModel.diaryList.observe(viewLifecycleOwner) { diaries ->
-            // isFriendList 값에 따라 필터링 (예: 공개 여부로 필터 처리)
+            Log.d("DiaryListFragment", "받은 다이어리 개수: ${diaries.size}")
+
+            diaries.forEach { diary ->
+                Log.d("DiaryListFragment", "Diary ID: ${diary.diaryId}, isOpen: ${diary.isOpen}") // 🔥 개별 데이터 로그 추가
+            }
+
             val list = if (isFriendList) {
-                diaries.filter { !it.isOpen }
+                diaries.filter { it.isOpen } // 🔥 필터링 로직 수정
             } else {
                 diaries
             }
+            Log.d("DiaryListFragment", "필터링된 다이어리 개수: ${list.size}")
+
             diaryAdapter.updateList(list)
         }
 
+
+
         // API를 통해 다이어리 목록 로드
-        diaryViewModel.loadDiaryList()
+        diaryViewModel.loadDiaryList(isFriendList)
     }
 }

@@ -17,6 +17,15 @@ class DiaryRepository(private val diaryApi: DiaryApi) {
         }
     }
 
+    suspend fun fetchFriendDiaryList(): List<Diary>? { // 🔥 친구 다이어리 API 호출
+        return try {
+            val response = diaryApi.getFriendDiaries()
+            if (response.isSuccessful) response.body()?.result else null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     suspend fun fetchDiaryDetail(diaryId: Long): Diary? {
         return try {
             val response = diaryApi.getDiaryDetail(diaryId)
