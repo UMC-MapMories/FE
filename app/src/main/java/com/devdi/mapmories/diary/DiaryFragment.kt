@@ -269,12 +269,12 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
     private fun getFlagDrawable(country: String): Int {
         val lowerCountry = country.lowercase(Locale.getDefault())
         return when {
-            lowerCountry.contains("algeria") -> R.drawable.flag_algeria
-            lowerCountry.contains("united states") || lowerCountry.contains("usa") || lowerCountry == "us" -> R.drawable.flag_us
+            lowerCountry.contains("알제리") -> R.drawable.flag_algeria
+            lowerCountry.contains("미국") || lowerCountry.contains("usa") || lowerCountry == "us" -> R.drawable.flag_us
             // "south korea"를 포함하거나 "korea"가 단독으로 나오는 경우 처리 (주의: "north korea"까지 포함될 수 있음)
-            lowerCountry.contains("south korea") || (lowerCountry.contains("korea") && lowerCountry.contains("republic")) -> R.drawable.flag_korea
-            lowerCountry.contains("japan") -> R.drawable.flag_canada
-            lowerCountry.contains("japan") -> R.drawable.flag_japan
+            lowerCountry.contains("대한민국") || (lowerCountry.contains("korea") && lowerCountry.contains("republic")) -> R.drawable.flag_korea
+            lowerCountry.contains("캐나다") -> R.drawable.flag_canada
+            lowerCountry.contains("일본") -> R.drawable.flag_japan
             else -> R.drawable.flag_default
         }
     }
