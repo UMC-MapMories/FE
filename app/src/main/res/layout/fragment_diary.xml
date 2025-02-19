@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,7 +8,7 @@
     android:background="@drawable/background_strip_diary"
     tools:context="com.devdi.mapmories.diary.DiaryFragment">
 
-    <!-- 상단 ToolBar (우측에 Save 버튼 포함) -->
+    <!-- 상단 ToolBar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -19,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Save 버튼: ToolBar 우측에 배치 -->
+        <!-- Save 버튼 -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
@@ -44,23 +43,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- 타이틀과 위도/경도 입력 영역 (수평 LinearLayout) -->
-    <LinearLayout
+    <!-- 제목, 국기, 위도/경도를 한 줄에 배치 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title_location_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/txtSelectedDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp">
 
-        <!-- [왼쪽] Title 텍스트와 제목 입력 EditText (글씨가 줄에 맞춰지도록 includeFontPadding="false" 추가) -->
+        <!-- 제목 (Title) -->
         <LinearLayout
+            android:id="@+id/title_layout"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imgFlag"
+            android:layout_marginEnd="12dp"
+            tools:ignore="MissingConstraints">
 
             <TextView
                 android:id="@+id/d1_title"
@@ -69,7 +71,7 @@
                 android:text="@string/title"
                 android:textColor="#6E8F92"
                 android:textSize="24sp"
-                android:fontFamily="@font/preahvihear" />
+                android:fontFamily="@font/preahvihear"/>
 
             <EditText
                 android:id="@+id/edtTitle"
@@ -85,12 +87,25 @@
                 android:singleLine="true"/>
         </LinearLayout>
 
-        <!-- [오른쪽] 위도/경도 입력 영역 (글씨는 Title과 동일한 폰트 적용) -->
+        <!-- 국기 (Flag) -->
+        <ImageView
+            android:id="@+id/imgFlag"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:contentDescription="Flag"
+            app:layout_constraintStart_toEndOf="@id/title_layout"
+            app:layout_constraintEnd_toStartOf="@id/coordinate_layout"
+            app:layout_constraintTop_toTopOf="@id/title_layout"
+            android:layout_marginStart="12dp"/>
+
+        <!-- 위도/경도 입력 -->
         <LinearLayout
+            android:id="@+id/coordinate_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_layout">
 
             <EditText
                 android:id="@+id/edtLatitude"
@@ -118,19 +133,9 @@
                 android:fontFamily="@font/preahvihear"
                 android:singleLine="true"/>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 위도/경도 입력에 따른 국기(예: 해당 국가의 깃발)를 표시하는 영역 -->
-    <ImageView
-        android:id="@+id/imgFlag"
-        android:layout_width="48dp"
-        android:layout_height="32dp"
-        android:contentDescription="Flag"
-        app:layout_constraintTop_toBottomOf="@id/title_location_layout"
-        app:layout_constraintStart_toStartOf="@id/title_location_layout"
-        android:layout_marginTop="8dp" />
-
-    <!-- 'Edit your diary' 텍스트 (작성 영역 라벨) -->
+    <!-- 'Edit your diary' 텍스트 -->
     <TextView
         android:id="@+id/d1_edit"
         android:layout_width="wrap_content"
@@ -139,12 +144,12 @@
         android:textColor="#6E8F92"
         android:textSize="24sp"
         android:fontFamily="@font/preahvihear"
-        app:layout_constraintTop_toBottomOf="@id/imgFlag"
+        app:layout_constraintTop_toBottomOf="@id/title_location_layout"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="8dp"/>
 
-    <!-- 일기 내용 입력 EditText (줄 배경에 맞춰 입력, includeFontPadding="false" 추가) -->
+    <!-- 일기 내용 입력 (Write your diary) -->
     <EditText
         android:id="@+id/edtDiary"
         android:layout_width="0dp"
@@ -159,9 +164,11 @@
         app:layout_constraintTop_toBottomOf="@id/d1_edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:layout_marginTop="4dp"/>
 
-    <!-- 카메라 버튼 (필요 시 이미지 촬영 기능) -->
+    <!-- 카메라 버튼 -->
+    <!-- 카메라 버튼 -->
     <ImageButton
         android:id="@+id/icCamera"
         android:layout_width="350dp"
@@ -172,9 +179,9 @@
         app:layout_constraintTop_toBottomOf="@id/edtDiary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="40dp"/>
 
-    <!-- 카메라로 촬영된 이미지(필요 시) -->
+    <!-- 촬영된 이미지 -->
     <ImageView
         android:id="@+id/imgCamera"
         android:layout_width="350dp"

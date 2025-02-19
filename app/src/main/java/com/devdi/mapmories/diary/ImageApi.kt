@@ -16,5 +16,9 @@ data class ImageUploadResponse(
     val isSuccess: Boolean,
     val code: String,
     val message: String,
-    val result: Map<String, String> // 예: {"additionalProp1": "https://upload.url/..." }
+    val result: UploadResult // result를 별도 데이터 클래스로 분리
+)
+
+data class UploadResult(
+    val url: String // 업로드 URL이 있는 필드
 )

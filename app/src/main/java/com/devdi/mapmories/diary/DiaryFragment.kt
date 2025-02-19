@@ -203,14 +203,12 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
     private suspend fun uploadImageFile(file: File): String? {
         val fileName = file.name
         val contentType = "image/jpeg" // 파일 확장자에 맞게 설정 (예: image/png)
+
         try {
             val response = imageApi.getUploadUrl(fileName, contentType)
             if (response.isSuccessful && response.body()?.isSuccess == true) {
-                // 업로드 URL은 result 객체 내의 key에 따라 다릅니다.
-                // 예시로 additionalProp1에 업로드 URL이 있다고 가정합니다.
-                val uploadUrl = response.body()?.result?.get("additionalProp1")
+                val uploadUrl = response.body()?.result?.url // 올바른 URL 접근 방식
                 if (!uploadUrl.isNullOrEmpty()) {
-                    // 파일을 업로드 (PUT 요청)
                     val client = OkHttpClient()
                     val mediaType = contentType.toMediaTypeOrNull()
                     val requestBody = file.asRequestBody(mediaType)
@@ -219,18 +217,23 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
                         .put(requestBody)
                         .addHeader("Content-Type", contentType)
                         .build()
+
                     val uploadResponse = withContext(Dispatchers.IO) { client.newCall(request).execute() }
                     if (uploadResponse.isSuccessful) {
-                        // 성공 시, 업로드 URL 또는 서버에서 제공하는 공개 URL을 반환
-                        return uploadUrl
+                        return uploadUrl // 성공하면 업로드된 URL 반환
+                    } else {
+                        Log.e("Upload", "PUT 요청 실패: ${uploadResponse.code}")
                     }
                 }
+            } else {
+                Log.e("Upload", "업로드 URL 요청 실패: ${response.errorBody()?.string()}")
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         return null
     }
+
 
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
@@ -269,7 +272,8 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
             lowerCountry.contains("algeria") -> R.drawable.flag_algeria
             lowerCountry.contains("united states") || lowerCountry.contains("usa") || lowerCountry == "us" -> R.drawable.flag_us
             // "south korea"를 포함하거나 "korea"가 단독으로 나오는 경우 처리 (주의: "north korea"까지 포함될 수 있음)
-            lowerCountry.contains("south korea") || (lowerCountry.contains("korea") && lowerCountry.contains("republic")) -> R.drawable.flag_kr
+            lowerCountry.contains("south korea") || (lowerCountry.contains("korea") && lowerCountry.contains("republic")) -> R.drawable.flag_korea
+            lowerCountry.contains("japan") -> R.drawable.flag_canada
             lowerCountry.contains("japan") -> R.drawable.flag_japan
             else -> R.drawable.flag_default
         }
