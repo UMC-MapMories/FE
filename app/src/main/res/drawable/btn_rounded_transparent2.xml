@@ -5,7 +5,7 @@
     <corners android:radius="25dp"/>
 
     <!-- 배경 색상 (50% 투명한 #96B3AF) -->
-    <solid android:color="#3F5A56"/>
+    <solid android:color="#8096B3AF"/>
 
     <!-- 내부 패딩 -->
     <padding

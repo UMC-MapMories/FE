@@ -4,35 +4,43 @@
             name="friend"
             type="com.devdi.mapmories.settings.Friend" />
     </data>
+
+    <!-- LinearLayout 전체 배경 적용 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@drawable/item_background">
 
         <ImageView
             android:id="@+id/ivProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile" />
+            android:src="@drawable/ic_friend_profile" />
 
+        <!-- 친구 이름 (왼쪽 정렬, Bold 적용) -->
         <TextView
             android:id="@+id/tvFriendName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingStart="8dp"
-            android:text="@{friend.name}" />
+            android:padding="8dp"
+            android:text="@{friend.name}"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:gravity="start"/>
 
+        <!-- 친구 신청 버튼 (반투명 배경 적용) -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSendRequest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="신청"
+            android:text="친구 신청"
             android:textColor="@android:color/white"
-            android:background="@drawable/btn_rounded"
+            android:background="@drawable/btn_rounded_transparent"
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
 
