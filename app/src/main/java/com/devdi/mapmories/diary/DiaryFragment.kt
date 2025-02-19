@@ -148,7 +148,9 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
             val longitude = edtLongitude.text.toString().toDoubleOrNull() ?: 0.0
             val date = txtSelectedDate.text.toString()
 
-            diaryViewModel.saveDiary(title, content, imgUrl, isOpen, isCollaborative, latitude, longitude, date)
+            val cleanImgUrl = uploadedImageUrl?.substringBefore("?") ?: ""
+
+            diaryViewModel.saveDiary(title, content, cleanImgUrl, isOpen, isCollaborative, latitude, longitude, date)
         }
 
         diaryViewModel.saveResult.observe(viewLifecycleOwner) { result ->
