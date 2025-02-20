@@ -154,12 +154,22 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         }
 
         diaryViewModel.saveResult.observe(viewLifecycleOwner) { result ->
-            result.onSuccess {
-                Toast.makeText(requireContext(), "Diary saved successfully!", Toast.LENGTH_SHORT).show()
-            }
-            result.onFailure { exception ->
-                Toast.makeText(requireContext(), "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
+            result.fold(
+                onSuccess = { response ->
+                    Toast.makeText(
+                        requireContext(),
+                        "다이어리 저장 성공: ${response.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                },
+                onFailure = { exception ->
+                    Toast.makeText(
+                        requireContext(),
+                        "저장 실패: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
         }
     }
 

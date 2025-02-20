@@ -11,10 +11,9 @@ data class DiaryRequest(
 )
 
 data class DiaryResponse(
-    val isSuccess: Boolean,
-    val code: String,
     val message: String,
-    val result: DiaryResult?
+    val status: Int,  // API 응답의 "status"를 반영
+    val timestamp: String
 )
 
 data class DiaryResult(
