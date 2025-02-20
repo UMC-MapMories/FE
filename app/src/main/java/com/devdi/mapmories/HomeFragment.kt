@@ -1,6 +1,7 @@
 package com.devdi.mapmories
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -10,11 +11,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.devdi.mapmories.databinding.FragmentHomeBinding
 import com.devdi.mapmories.community.PeopleFragment
+import com.devdi.mapmories.databinding.FragmentHomeBinding
 import com.devdi.mapmories.diary.DiaryFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -25,8 +27,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
@@ -35,6 +41,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val locations = mutableListOf<LatLng>()
+    private val markers = mutableMapOf<String, Marker>()
+
+    private val PREFS_NAME = "MapPreferences"
+    private val LOCATIONS_KEY = "saved_locations"
 
     private val locationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -57,11 +67,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // FusedLocationProviderClient 초기화
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
-//        mapFragment.getMapAsync(this)
-
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
+
+        // SharedPreferences에 저장된 위치 로드
+        loadLocationsFromPrefs()
 
         return binding.root
     }
@@ -69,14 +79,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapView.getMapAsync(this)
-
-        // 이전 마커 복구
-        savedInstanceState?.let {
-            val savedLocations = it.getParcelableArrayList<LatLng>("locations")
-            savedLocations?.let { list ->
-                locations.addAll(list)
-            }
-        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -102,6 +104,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         map.setOnMapLongClickListener { latLng ->
             locations.add(latLng) // 클릭한 위치 저장
             addMarkerOnMap(latLng) // 마커 추가
+            saveLocationsToPrefs() // 위치 정보 저장
             Log.d("locations", "long click : ${latLng.latitude}, ${latLng.longitude}")
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -121,21 +124,110 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }, 1000) // 1초
         }
 
-        map.setOnMarkerClickListener { marker ->
-            val peopleFragment = PeopleFragment().apply {
-                arguments = Bundle().apply {
-                    putDouble("latitude", marker.position.latitude)
-                    putDouble("longitude", marker.position.longitude)
-                }
-            }
+//        map.setOnMarkerClickListener { marker ->
+//            val peopleFragment = PeopleFragment().apply {
+//                arguments = Bundle().apply {
+//                    putDouble("latitude", marker.position.latitude)
+//                    putDouble("longitude", marker.position.longitude)
+//                }
+//            }
+//
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.frame_layout, peopleFragment)
+//                .addToBackStack(null)
+//                .commit()
+//            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.selectedItemId = R.id.people
+//            true
+//        }
 
-            // People Fragment 전환
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, peopleFragment)
-                .addToBackStack(null)
-                .commit()
+        map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+            override fun onMarkerDragStart(marker: Marker) {}
+            override fun onMarkerDrag(marker: Marker) {}
+            override fun onMarkerDragEnd(marker: Marker) {
+                val peopleFragment = PeopleFragment().apply {
+                    arguments = Bundle().apply {
+                        putDouble("latitude", marker.position.latitude)
+                        putDouble("longitude", marker.position.longitude)
+                    }
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.frame_layout, peopleFragment)
+                    .addToBackStack(null)
+                    .commit()
                 activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.selectedItemId = R.id.people
+            }
+        })
+
+        map.setOnMarkerClickListener { marker ->
+            showMarkerOptionsDialog(marker)
             true
+        }
+    }
+
+    private fun showMarkerOptionsDialog(marker: Marker) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("마커 옵션")
+            .setMessage("이 마커를 삭제하시겠습니까?")
+            .setPositiveButton("삭제") { _, _ ->
+                deleteMarker(marker)
+            }
+            .setNegativeButton("취소", null)
+            .show()
+    }
+
+    private fun deleteMarker(marker: Marker) {
+        val position = marker.position
+        locations.removeIf { it.latitude == position.latitude && it.longitude == position.longitude }
+        markers.remove(getMarkerKey(position))
+        marker.remove()
+        saveLocationsToPrefs()
+
+        Toast.makeText(context, "마커가 삭제되었습니다", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addMarkerOnMap(latLng: LatLng) {
+        val marker = map.addMarker(
+            MarkerOptions()
+                .position(latLng)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_airplane))
+                .draggable(true)
+        )
+        marker?.let {
+            markers[getMarkerKey(latLng)] = it
+        }
+    }
+
+    private fun getMarkerKey(latLng: LatLng): String {
+        return "${latLng.latitude},${latLng.longitude}"
+    }
+
+    // SharedPreferences에 위치 저장
+    private fun saveLocationsToPrefs() {
+        val sharedPrefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        val gson = Gson()
+        val json = gson.toJson(locations)
+
+        Log.d("HomeFragment", "saveLocationsToPrefs : $json")
+
+        editor.putString(LOCATIONS_KEY, json)
+        editor.apply()
+    }
+
+    // SharedPreferences에서 위치 로드
+    private fun loadLocationsFromPrefs() {
+        val sharedPrefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPrefs.getString(LOCATIONS_KEY, null)
+
+        Log.d("HomeFragment", "loadLocationsFromPrefs : $json")
+
+        if (json != null) {
+            val type = object : TypeToken<List<LatLng>>() {}.type
+            val savedLocations: List<LatLng> = gson.fromJson(json, type)
+            locations.clear()
+            locations.addAll(savedLocations)
         }
     }
 
@@ -173,19 +265,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         moveCameraToLocation(defaultLatLng)
     }
 
-    private fun addMarkerOnMap(latLng: LatLng) {
-        map.addMarker(
-            MarkerOptions()
-                .position(latLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_airplane))
-        )
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList("locations", ArrayList(locations))
-    }
-
     override fun onStart() {
         super.onStart()
         mapView.onStart()
@@ -209,6 +288,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         mapView.onResume()
+        loadLocationsFromPrefs()
 
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         if (bottomNavigationView != null) {
