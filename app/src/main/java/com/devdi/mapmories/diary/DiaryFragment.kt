@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.devdi.mapmories.R
+import com.devdi.mapmories.R.drawable.flag_australia
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -277,6 +278,17 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
             lowerCountry.contains("대한민국") || (lowerCountry.contains("korea") && lowerCountry.contains("republic")) -> R.drawable.flag_korea
             lowerCountry.contains("캐나다") -> R.drawable.flag_canada
             lowerCountry.contains("일본") -> R.drawable.flag_japan
+            lowerCountry.contains("이탈리아") -> R.drawable.flag_italy
+            lowerCountry.contains("호주") -> R.drawable.flag_australia
+            lowerCountry.contains("싱가포르") -> R.drawable.flag_singapore
+            lowerCountry.contains("영국") -> R.drawable.flag_uk
+            lowerCountry.contains("스페인") -> R.drawable.flag_spain
+            lowerCountry.contains("잉글랜드") -> R.drawable.flag_england
+            lowerCountry.contains("네덜랜드") -> R.drawable.flag_netherlands
+            lowerCountry.contains("홍콩") -> R.drawable.flag_hongkong
+            lowerCountry.contains("독일") -> R.drawable.flag_germany
+            lowerCountry.contains("체코") -> R.drawable.flag_czech
+            lowerCountry.contains("몽골") -> R.drawable.flag_mongolia
             else -> R.drawable.flag_default
         }
     }
