@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:minHeight="50dp"
             android:text="@={viewModel.email}"
-            android:hint="전화번호"
+            android:hint="이메일"
             android:inputType="textEmailAddress"
             android:background="@drawable/edittext_rounded"
             android:padding="16dp"

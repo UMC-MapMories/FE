@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -59,7 +60,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 val response = RetrofitInstance.api.login(request)
 
                 if (response.isSuccessful) {
-                    // 🔹 JWT 토큰을 Authorization 헤더에서 가져오기
+                    // 성공 시 처리
                     val token = response.headers()["Authorization"]
                     if (token != null) {
                         saveToken(token)
@@ -69,11 +70,23 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         Log.e("LoginViewModel", "No Authorization Header")
                     }
                 } else {
-                    Log.e("LoginViewModel", "Login Request Failed: ${response.code()}")
+                    response.errorBody()?.let { errorBody ->
+                        // errorBody를 읽어 JSON 파싱
+                        val errorResponse = Gson().fromJson(errorBody.charStream(), LoginResponse::class.java)
+                        Toast.makeText(context, errorResponse.message, Toast.LENGTH_SHORT).show()
+                        Log.e("LoginViewModel", "Login Request Failed: ${response.code()} - ${errorResponse.message}")
+                    } ?: run {
+                        // errorBody가 null인 경우 기본 메시지 사용
+                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                        Log.e("LoginViewModel", "Login Request Failed: ${response.code()}")
+                    }
                 }
+
             } catch (e: HttpException) {
+                Toast.makeText(context, "Server Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 Log.e("LoginViewModel", "Server Error: ${e.message}")
             } catch (e: Exception) {
+                Toast.makeText(context, "Network Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 Log.e("LoginViewModel", "Network Error: ${e.message}")
             }
         }
