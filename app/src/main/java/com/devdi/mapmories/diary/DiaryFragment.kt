@@ -101,6 +101,8 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         }
 
     companion object {
+        // 앱 실행 중 DiaryFragment가 처음으로 보여질 때만 달력 자동 호출
+        private var isFirstTime = true
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
     }
 
@@ -116,17 +118,24 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         imgCamera = view.findViewById(R.id.imgCamera)
         imgFlag = view.findViewById(R.id.imgFlag)
 
+        // 상태 복원: Fragment 재생성 시 onSaveInstanceState()에 저장했던 값 복원
+        savedInstanceState?.let { bundle ->
+            edtTitle.setText(bundle.getString("title", ""))
+            edtDiary.setText(bundle.getString("diary", ""))
+            edtLatitude.setText(bundle.getString("latitude", ""))
+            edtLongitude.setText(bundle.getString("longitude", ""))
+            txtSelectedDate.text = bundle.getString("date", "")
+        }
+
+        // 날짜 TextView 클릭 시 달력 다이얼로그 호출
+        txtSelectedDate.setOnClickListener {
+            showDatePicker()
+        }
+
         // imgCamera 클릭 시 카메라 권한 체크 후 실행
         imgCamera.setOnClickListener {
             checkCameraPermissionAndLaunchCamera()
         }
-
-        // 날짜 TextView 클릭 시 달력 다이얼로그 재출력 (날짜 수정 가능)
-        txtSelectedDate.setOnClickListener {
-            showDatePicker()
-        }
-        // 프래그먼트 진입 시 자동 달력 출력
-        showDatePicker()
 
         // 위도/경도 입력 시 국기 업데이트
         val textWatcher = object : TextWatcher {
@@ -150,27 +159,46 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
 
             val cleanImgUrl = uploadedImageUrl?.substringBefore("?") ?: ""
 
-            diaryViewModel.saveDiary(title, content, cleanImgUrl, isOpen, isCollaborative, latitude, longitude, date)
+            diaryViewModel.saveDiary(
+                title,
+                content,
+                cleanImgUrl,
+                isOpen,
+                isCollaborative,
+                latitude,
+                longitude,
+                date
+            )
         }
 
         diaryViewModel.saveResult.observe(viewLifecycleOwner) { result ->
-            result.fold(
-                onSuccess = { response ->
-                    Toast.makeText(
-                        requireContext(),
-                        "다이어리 저장 성공: ${response.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                },
-                onFailure = { exception ->
-                    Toast.makeText(
-                        requireContext(),
-                        "저장 실패: ${exception.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            )
+            result.onSuccess {
+                Toast.makeText(requireContext(), "Diary saved successfully!", Toast.LENGTH_SHORT).show()
+            }
+            result.onFailure { exception ->
+                Toast.makeText(requireContext(), "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    // Fragment가 화면에 보일 때 호출됨
+    override fun onResume() {
+        super.onResume()
+        // DiaryFragment에 처음 진입할 때만 달력 자동 호출 (txtSelectedDate가 비어있다면)
+        if (isFirstTime && txtSelectedDate.text.isEmpty()) {
+            showDatePicker()
+            isFirstTime = false
+        }
+    }
+
+    // 상태 저장: Fragment가 소멸되기 전에 입력한 값들을 저장합니다.
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("title", edtTitle.text.toString())
+        outState.putString("diary", edtDiary.text.toString())
+        outState.putString("latitude", edtLatitude.text.toString())
+        outState.putString("longitude", edtLongitude.text.toString())
+        outState.putString("date", txtSelectedDate.text.toString())
     }
 
     private fun checkCameraPermissionAndLaunchCamera() {
@@ -211,15 +239,15 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
     }
 
-    // 서버에 이미지 파일 업로드: 먼저 업로드 URL 발급 API를 호출한 후, OkHttp를 사용하여 PUT 요청
+    // 서버에 이미지 파일 업로드: 업로드 URL 발급 API 호출 후, OkHttp를 사용하여 PUT 요청
     private suspend fun uploadImageFile(file: File): String? {
         val fileName = file.name
-        val contentType = "image/jpeg" // 파일 확장자에 맞게 설정 (예: image/png)
+        val contentType = "image/jpeg"
 
         try {
             val response = imageApi.getUploadUrl(fileName, contentType)
             if (response.isSuccessful && response.body()?.isSuccess == true) {
-                val uploadUrl = response.body()?.result?.url // 올바른 URL 접근 방식
+                val uploadUrl = response.body()?.result?.url
                 if (!uploadUrl.isNullOrEmpty()) {
                     val client = OkHttpClient()
                     val mediaType = contentType.toMediaTypeOrNull()
@@ -232,7 +260,7 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
 
                     val uploadResponse = withContext(Dispatchers.IO) { client.newCall(request).execute() }
                     if (uploadResponse.isSuccessful) {
-                        return uploadUrl // 성공하면 업로드된 URL 반환
+                        return uploadUrl
                     } else {
                         Log.e("Upload", "PUT 요청 실패: ${uploadResponse.code}")
                     }
@@ -245,7 +273,6 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         }
         return null
     }
-
 
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
@@ -283,7 +310,6 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         return when {
             lowerCountry.contains("알제리") -> R.drawable.flag_algeria
             lowerCountry.contains("미국") || lowerCountry.contains("usa") || lowerCountry == "us" -> R.drawable.flag_us
-            // "south korea"를 포함하거나 "korea"가 단독으로 나오는 경우 처리 (주의: "north korea"까지 포함될 수 있음)
             lowerCountry.contains("대한민국") || (lowerCountry.contains("korea") && lowerCountry.contains("republic")) -> R.drawable.flag_korea
             lowerCountry.contains("캐나다") -> R.drawable.flag_canada
             lowerCountry.contains("일본") -> R.drawable.flag_japan
@@ -291,3 +317,6 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
         }
     }
 }
+
+
+
