@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.devdi.mapmories.RetrofitInstance
+import com.devdi.mapmories.network.RetrofitInstance
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 

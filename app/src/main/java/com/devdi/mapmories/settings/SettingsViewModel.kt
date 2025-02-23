@@ -3,8 +3,7 @@ package com.devdi.mapmories.settings
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
-import com.devdi.mapmories.RetrofitInstance
-import dagger.hilt.android.internal.Contexts.getApplication
+import com.devdi.mapmories.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {

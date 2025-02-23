@@ -10,8 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devdi.mapmories.R
-import com.devdi.mapmories.RetrofitInstance
-import dagger.hilt.android.AndroidEntryPoint
+import com.devdi.mapmories.network.RetrofitInstance
 
 
 class DiaryListFragment : Fragment() {

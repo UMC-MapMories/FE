@@ -1,6 +1,7 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.network
 
 import android.content.Context
+import com.devdi.mapmories.MapMoriesApplication
 import com.devdi.mapmories.community.DiaryApi
 import com.devdi.mapmories.login.LoginApiService
 import com.devdi.mapmories.settings.FriendApi

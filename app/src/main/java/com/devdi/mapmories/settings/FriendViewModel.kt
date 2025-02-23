@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devdi.mapmories.RetrofitInstance
+import com.devdi.mapmories.network.RetrofitInstance
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 

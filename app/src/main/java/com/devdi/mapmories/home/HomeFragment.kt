@@ -1,4 +1,4 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.home
 
 import android.Manifest
 import android.content.Context
@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.devdi.mapmories.R
 import com.devdi.mapmories.community.PeopleFragment
 import com.devdi.mapmories.databinding.FragmentHomeBinding
 import com.devdi.mapmories.diary.DiaryFragment
@@ -120,7 +121,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     .replace(R.id.frame_layout, diaryFragment)
                     .addToBackStack(null) // 뒤로 가기
                     .commit()
-                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.selectedItemId = R.id.diary
+                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.selectedItemId =
+                    R.id.diary
             }, 1000) // 1초
         }
 
@@ -155,7 +157,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     .replace(R.id.frame_layout, peopleFragment)
                     .addToBackStack(null)
                     .commit()
-                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.selectedItemId = R.id.people
+                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.selectedItemId =
+                    R.id.people
             }
         })
 

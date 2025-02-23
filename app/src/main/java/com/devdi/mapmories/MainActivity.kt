@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.devdi.mapmories.databinding.ActivityMainBinding
 import com.devdi.mapmories.community.PeopleFragment
 import com.devdi.mapmories.diary.DiaryFragment
+import com.devdi.mapmories.home.HomeFragment
 import com.devdi.mapmories.settings.SettingsFragment
 import com.devdi.mapmories.shop.ShopFragment
 import dagger.hilt.android.AndroidEntryPoint

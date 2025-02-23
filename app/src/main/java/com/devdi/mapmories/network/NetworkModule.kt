@@ -1,4 +1,4 @@
-package com.devdi.mapmories
+package com.devdi.mapmories.network
 
 import android.content.Context
 import android.content.SharedPreferences

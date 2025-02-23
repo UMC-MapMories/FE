@@ -12,7 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.devdi.mapmories.R
-import com.devdi.mapmories.RetrofitInstance
+import com.devdi.mapmories.network.RetrofitInstance
 
 class DiaryDetailFragment : Fragment() {
 
